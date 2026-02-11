@@ -7,26 +7,28 @@
   box-sizing: border-box;
 }
 
-html, body { 
-  height: 100%; /* Changed from auto to 100% to stabilize background */
+html {
+  /* Fix: Changed to allow the background to follow the scroll */
+  height: auto;
+  min-height: 100%;
 }
 
-/* ======================================
-    BODY & BACKGROUND
-====================================== */
 body {
+  /* Fix: Ensure background covers the entire scrolling length */
   min-height: 100vh;
+  height: auto;
   background: #020b1a; /* Base fallback */
   background:
     radial-gradient(circle at top left, #2f78b5 0%, transparent 45%),
     radial-gradient(circle at bottom right, #2f78b5 0%, transparent 45%),
     radial-gradient(circle at center, #020b1a 0%, #020b1a 100%);
+  background-attachment: fixed; /* Fix: Keeps the gradient background stable while scrolling */
   color: #d2c6ad;
-  overflow-x: hidden; /* Prevents meteors from causing horizontal scroll */
+  overflow-x: hidden;
 }
 
 /* ======================================
-    PAGE WRAPPER (Fixed Splitting & Centered)
+    PAGE WRAPPER
 ====================================== */
 .page-wrapper {
   position: relative;
@@ -34,12 +36,9 @@ body {
   max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
-  /* Fixed the centering logic to prevent "splitting" */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  
-  /* ALIGNMENT FIX */
   align-items: center;    
   text-align: center;
 }
@@ -200,7 +199,7 @@ th, td {
     BACKGROUND WAVE
 ====================================== */
 .bg-wave {
-  position: fixed; /* Fixed prevents splitting on scroll */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -225,7 +224,7 @@ th, td {
     SHOOTING STARS (Logic Preserved)
 ====================================== */
 .meteors {
-  position: fixed; /* Changed to fixed to stay behind content */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -282,23 +281,20 @@ th, td {
 }
 
 /* ======================================
-    RESPONSIVE FIXES (Continuous Flow)
+    RESPONSIVE FIXES
 ====================================== */
 @media (max-width: 820px) {
   .page-wrapper { 
     padding: 28px 20px; 
-    display: block; /* Forces continuous block scrolling to prevent split */
-    min-height: auto; 
+    /* Fix: Ensuring content fills space without causing a split */
+    min-height: 100vh;
   }
   h1 { font-size: 26px; }
-  .box, a, button { margin-left: auto; margin-right: auto; }
 }
 
 @media (max-width: 360px) {
   .page-wrapper { 
     padding: 16px; 
-    display: block; 
-    min-height: auto; 
   }
   h1 { font-size: 22px; }
   .meteors { display: none; }
