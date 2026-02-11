@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tuition Details</title>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+
+<div class="page-wrapper">
+  <h1 id="title"></h1>
+
+  <div class="box">
+    <input id="monthName" placeholder="Month (e.g. March 2026)">
+    <input id="classCount" type="number" placeholder="Number of classes">
+    <input id="earning" type="number" placeholder="Earning">
+    <button onclick="addMonth()">Add Month</button>
+  </div>
+
+  <div class="box">
+    <button onclick="toggleEarning()">Show / Hide Earnings</button>
+    <div id="months"></div>
+    <h3 id="total"></h3>
+  </div>
+</div>
+
+<script type="module" src="tuition.js"></script>
+</body>
+</html>
