@@ -1,19 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login</title>
-  <link rel="stylesheet" href="theme.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rekordz | Student Progress Tracker</title>
+
+  <link rel="stylesheet" href="theme.css" />
 </head>
+
 <body>
 
-<div class="page-wrapper">
-  <h1>🔐 Login</h1>
+  <!-- Background wave -->
+  <div class="bg-wave"></div>
 
-  <div class="box">
-    <button onclick="login()">Continue with Google</button>
+  <!-- Meteor animation -->
+  <div class="meteors">
+    <span></span>
+    <span></span><span></span>
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
   </div>
-</div>
 
-<script type="module" src="auth.js"></script>
+  <!-- MAIN WRAPPER -->
+  <div class="page-wrapper">
+
+    <!-- LOGO -->
+    <div class="box" style="text-align:center;">
+      <img
+        src="logo.png"
+        alt="Rekordz Logo"
+        style="width:120px; max-width:40vw; margin:10px auto; display:block;"
+      />
+    </div>
+
+    <!-- NAME + TAGLINE -->
+    <h1 style="text-align:center;">Rekordz</h1>
+    <p style="text-align:center; margin-top:-10px;">
+      <strong>Student Progress Tracker</strong>
+    </p>
+
+    <!-- ABOUT -->
+    <div class="box">
+      <h3>📘 About Rekordz</h3>
+      <p>
+        <strong>Rekordz</strong> is a secure and easy-to-use platform that helps
+        students track their academic progress in one place.
+      </p>
+      <ul>
+        <li>📊 Record and analyze class test results</li>
+        <li>📅 Track tuition schedules and monthly activity</li>
+        <li>📝 Store personal academic notes securely</li>
+      </ul>
+      <p>
+        Your data is private, user-based, and accessible anytime from any device.
+      </p>
+    </div>
+
+    <!-- CENTERED LOGIN SECTION -->
+    <div
+      style="
+        min-height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div class="box">
+        <button onclick="login()">Continue with Google</button>
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="box">
+      <h3>📩 Support</h3>
+      <p>
+        Need help or facing an issue?
+      </p>
+      <p>
+        📧 <strong>support@rekordztrh.app</strong><br />
+        🌐 <strong>rekordztrh.netlify.app</strong>
+      </p>
+      <small>Response time: within 24 hours</small>
+    </div>
+
+  </div>
+
+  <!-- AUTH -->
+  <script type="module" src="auth.js"></script>
+
 </body>
 </html>
