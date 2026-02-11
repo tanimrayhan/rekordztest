@@ -273,7 +273,43 @@ td {
   background: rgba(38, 78, 126, 0.95);
   transform: translateY(-1px);
 }
+/* ======================================
 
+   LOGO STYLING
+
+====================================== */
+
+.logo {
+
+  /* This allows you to change the size easily */
+
+  width: 220px; 
+
+  height: auto;
+
+  
+
+  /* Keeps it centered within the flex wrapper */
+
+  margin: 0 auto 20px auto; 
+
+  display: block;
+
+
+
+  /* Matches the depth of your site boxes */
+
+  filter: drop-shadow(0 0 15px rgba(0, 153, 255, 0.3));
+
+  
+
+  /* Ensures it stays above the shooting stars background */
+
+  position: relative;
+
+  z-index: 3; 
+
+}
 /* ======================================
    SHOOTING STAR BURSTS
    (3 at a time)
