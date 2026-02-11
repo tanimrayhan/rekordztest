@@ -9,104 +9,67 @@
 </head>
 
 <body>
+<body class="home">
 
   <!-- BACKGROUND EFFECTS -->
   <div class="bg-wave"></div>
-
   <div class="meteors">
-    <span></span>
-    <span></span><span></span>
-    <span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <main
-    style="
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    "
-  >
-    <div class="page-wrapper">
+  <!-- CONTENT -->
+  <main class="page-wrapper">
 
-      <!-- LOGO (TRANSPARENT, NO BOX) -->
-      <div style="text-align:center; margin-bottom: 10px;">
-        <img
-          src="logo.png"
-          alt="Rekordz Logo"
-          style="
-            width:120px;
-            max-width:40vw;
-            display:block;
-            margin:0 auto;
-          "
-        />
+    <!-- LOGO -->
+    <img src="logo.png" alt="Rekordz Logo" class="logo" />
+
+    <!-- TITLE -->
+    <h1>Welcome to Rekordz</h1>
+    <p class="tagline">Student Progress Tracker</p>
+
+    <!-- LOGIN AREA -->
+    <section class="login-area">
+
+      <div class="info-box">
+        <h2>👋 Welcome</h2>
+        <p>
+          Login with <strong>Google</strong> to continue and access your
+          personal dashboard.
+        </p>
       </div>
 
-      <!-- WELCOME TEXT -->
-      <h1 style="text-align:center;">Welcome to Rekordz</h1>
-      <p style="text-align:center; margin-top:-8px;">
-        <strong>Student Progress Tracker</strong>
+      <button onclick="login()">Continue with Google</button>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section class="box">
+      <h3>📘 About Rekordz</h3>
+      <p>
+        Rekordz helps students track class tests, tuition progress,
+        and personal notes in one secure place.
       </p>
+      <ul>
+        <li>📊 CT result tracking</li>
+        <li>📅 Tuition monitoring</li>
+        <li>📝 Academic notes</li>
+      </ul>
+    </section>
 
-      <!-- LOGIN SECTION (CENTERED) -->
-      <div
-        style="
-          min-height: 40vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-        "
-      >
+    <!-- SUPPORT -->
+    <section class="box">
+      <h3>📩 Contact & Support</h3>
+      <p>If you face any issues or need help:</p>
+      <p>
+        📧 <strong>support@rekordztrh.app</strong><br />
+        🌐 <strong>rekordztrh.netlify.app</strong>
+      </p>
+      <small>Response time: within 24 hours</small>
+    </section>
 
-        <!-- STYLED MESSAGE BOX -->
-        <div
-          class="box"
-          style="
-            text-align:center;
-            font-size: 0.95rem;
-            opacity: 0.9;
-          "
-        >
-          🔐 Login with Google to continue and access your personal dashboard
-        </div>
-
-        <!-- LOGIN BUTTON -->
-        <div class="box" style="text-align:center;">
-          <button onclick="login()">Continue with Google</button>
-        </div>
-
-      </div>
-
-      <!-- ABOUT SECTION (BELOW LOGIN) -->
-      <div class="box">
-        <h3>📘 About Rekordz</h3>
-        <p>
-          <strong>Rekordz</strong> is a simple and secure platform designed to
-          help students track their academic journey in one place.
-        </p>
-        <ul>
-          <li>📊 Record and analyze class test results</li>
-          <li>📅 Track tuition schedules and progress</li>
-          <li>📝 Store personal academic notes securely</li>
-        </ul>
-        <p>
-          All your data is private, user-based, and accessible anytime,
-          from any device.
-        </p>
-      </div>
-
-    </div>
   </main>
 
-  <!-- AUTH -->
   <script type="module" src="auth.js"></script>
-
 </body>
 </html>
