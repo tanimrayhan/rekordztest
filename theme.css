@@ -369,6 +369,30 @@ td {
   }
 }
 
+/* ======================================
+   FORCE CONTENT ABOVE METEORS
+   (NO VISUAL / GEOMETRY CHANGES)
+====================================== */
+
+.page-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.box,
+.login-area,
+.info-box,
+button,
+h1,
+h2,
+h3,
+p,
+ul,
+li,
+img {
+  position: relative;
+  z-index: 2;
+}
 
 .bg-wave {
   position: fixed;
@@ -510,50 +534,6 @@ td {
   .bg-wave {
     opacity: 0.25;
   }
-}
-/* ===============================
-   HOME PAGE FIX (INDEX ONLY)
-   DOES NOT AFFECT OTHER PAGES
-=============================== */
-
-body.home {
-  overflow-y: auto;
-}
-
-/* Prevent full-screen stacking on home */
-body.home .page-wrapper {
-  min-height: auto;
-  justify-content: flex-start;
-}
-
-/* Home layout spacing */
-.home-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-}
-
-/* Center login section only */
-.home-layout .login-area {
-  margin: 40px 0;
-}
-
-/* Styled welcome / info box */
-.home-layout .info-box {
-  background: rgba(8, 22, 44, 0.75);
-  border-radius: 18px;
-  padding: 20px 22px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 0 40px rgba(80,200,255,0.2);
-  max-width: 520px;
-  text-align: center;
-}
-
-/* Ensure background never clips */
-body.home .meteors,
-body.home .bg-wave {
-  position: fixed;
 }
 
 

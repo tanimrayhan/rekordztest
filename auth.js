@@ -8,33 +8,24 @@ import {
 
 const provider = new GoogleAuthProvider();
 
-/* LOGIN */
 window.login = async () => {
   try {
     await signInWithPopup(auth, provider);
   } catch (err) {
-    console.error(err);
     alert(err.message);
   }
 };
 
-/* LOGOUT */
 window.logout = async () => {
   await signOut(auth);
   location.href = "index.html";
 };
 
-/* AUTH STATE HANDLER */
 onAuthStateChanged(auth, user => {
-  const path = location.pathname;
-  const onLoginPage =
-    path === "/" || path === "" || path.endsWith("index.html");
+  const onLogin =
+    location.pathname === "/" ||
+    location.pathname.endsWith("index.html");
 
-  if (user && onLoginPage) {
-    location.href = "dashboard.html";
-  }
-
-  if (!user && !onLoginPage) {
-    location.href = "index.html";
-  }
+  if (user && onLogin) location.href = "dashboard.html";
+  if (!user && !onLogin) location.href = "index.html";
 });
