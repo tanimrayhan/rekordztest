@@ -1,52 +1,67 @@
 /* ======================================
-    GLOBAL RESET
+   GLOBAL RESET
 ====================================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html {
   /* Fix: Changed to allow the background to follow the scroll */
   height: auto;
   min-height: 100%;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ======================================
+   BODY & BACKGROUND
+====================================== */
 body {
+  font-family: "Segoe UI", Arial, sans-serif;
   /* Fix: Ensure background covers the entire scrolling length */
   min-height: 100vh;
   height: auto;
-  background: #020b1a; /* Base fallback */
+
   background:
     radial-gradient(circle at top left, #2f78b5 0%, transparent 45%),
     radial-gradient(circle at bottom right, #2f78b5 0%, transparent 45%),
     radial-gradient(circle at center, #020b1a 0%, #020b1a 100%);
-  background-attachment: fixed; /* Fix: Keeps the gradient background stable while scrolling */
-  color: #d2c6ad;
+  
+  /* Fix: Keeps the gradient background stable while scrolling to stop splitting */
+  background-attachment: fixed;
+
+  color: #d2c6ad; /* GLOBAL warm beige */
   overflow-x: hidden;
 }
 
 /* ======================================
-    PAGE WRAPPER
+   PAGE WRAPPER
 ====================================== */
 .page-wrapper {
   position: relative;
   z-index: 2;
   max-width: 900px;
-  margin: 0 auto;
+  margin: auto;
   padding: 40px 20px;
+  
+  /* Centering Logic */
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  align-items: center;    
   text-align: center;
 }
 
 /* ======================================
-    HEADINGS
+   HEADINGS
 ====================================== */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #d2c6ad;
   margin-bottom: 15px;
   position: relative;
@@ -60,22 +75,28 @@ h1 {
 }
 
 /* ======================================
-    PARAGRAPH & TEXT
+   PARAGRAPH & TEXT
 ====================================== */
-p, span, label, strong, small, li {
+p,
+span,
+label,
+strong,
+small,
+li {
   color: #d2c6ad;
   position: relative;
   z-index: 2;
 }
 
 /* ======================================
-    CARDS / SECTIONS
+   CARDS / SECTIONS
 ====================================== */
 .box {
   background: rgba(8, 22, 44, 0.9);
   border-radius: 14px;
   padding: 20px;
   margin-bottom: 25px;
+
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 30px rgba(0, 153, 255, 0.15);
   position: relative;
@@ -84,40 +105,52 @@ p, span, label, strong, small, li {
 }
 
 /* ======================================
-    INPUTS & TEXTAREA
+   INPUTS & TEXTAREA
 ====================================== */
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 12px;
   margin-bottom: 12px;
+
   background: #020b1a;
   border: 1px solid #2a4d6f;
   border-radius: 8px;
+
   color: #d2c6ad;
   font-size: 15px;
   position: relative;
   z-index: 2;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: #c6bba2;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: #f3ddb0;
 }
 
 /* ======================================
-    BUTTONS
+   BUTTONS
 ====================================== */
 button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #fff2cc, #f3ddb0);
+
+  background: linear-gradient(
+    135deg,
+    #fff2cc,
+    #f3ddb0
+  );
+
   color: #1a1a1a;
   border: none;
   border-radius: 25px;
+
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
@@ -132,18 +165,22 @@ button:hover {
 }
 
 /* ======================================
-    LINKS
+   LINKS (HOME PAGE)
 ====================================== */
 a {
   display: block;
   width: 100%;
   text-align: center;
+
   padding: 18px;
   margin-bottom: 18px;
+
   background: rgba(8, 22, 44, 0.9);
   color: #d2c6ad;
+
   text-decoration: none;
   border-radius: 16px;
+
   border: 1px solid rgba(255,255,255,0.1);
   transition: 0.3s;
   position: relative;
@@ -151,37 +188,37 @@ a {
 }
 
 a:hover {
-  background: rgba(10, 30, 55, 0.95);
-  box-shadow: 0 0 12px rgba(80, 200, 255, 0.18), inset 0 0 20px rgba(255, 255, 255, 0.03);
+  background: rgba(10, 30, 55, 0.95); /* darker blue, not light */
+  box-shadow:
+    0 0 12px rgba(80, 200, 255, 0.18),
+    inset 0 0 20px rgba(255, 255, 255, 0.03);
   transform: translateY(-2px);
 }
 
+
 /* ======================================
-    TUITION & NOTES LIST
+   TUITION LIST ITEMS
 ====================================== */
-.tuition, .notes-list li {
+.tuition {
   padding: 14px;
   margin-top: 12px;
+
   background: rgba(24, 58, 96, 0.9);
   border-radius: 10px;
+
   cursor: pointer;
   border: 1px solid rgba(255,255,255,0.08);
   color: #d2c6ad;
   transition: 0.25s ease;
 }
 
-.tuition:hover, .notes-list li:hover {
+.tuition:hover {
   background: rgba(38, 78, 126, 0.95);
   transform: translateY(-1px);
 }
 
-.notes-list {
-  list-style: none;
-  padding-left: 0;
-}
-
 /* ======================================
-    TABLE
+   TABLE
 ====================================== */
 table {
   width: 100%;
@@ -189,40 +226,59 @@ table {
   color: #d2c6ad;
 }
 
-th, td {
+th {
+  color: #d2c6ad;
+  padding: 10px;
+  border-bottom: 1px solid #2a4d6f;
+  text-align: left;
+}
+
+td {
   padding: 10px;
   border-bottom: 1px solid #2a4d6f;
   text-align: left;
 }
 
 /* ======================================
-    BACKGROUND WAVE
+   UTILITIES
 ====================================== */
-.bg-wave {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at top left, #2f78b5 0%, transparent 45%),
-    radial-gradient(circle at bottom right, #2f78b5 0%, transparent 45%),
-    repeating-linear-gradient(
-      -12deg,
-      rgba(80,200,255,0.12),
-      rgba(80,200,255,0.12) 1px,
-      transparent 1px,
-      transparent 18px
-    );
-  mask-image: radial-gradient(circle at center, black 65%, transparent 100%);
-  opacity: 0.65;
-  z-index: 0;
+.hidden {
+  display: none;
+}
+
+/* ===============================
+   NOTES LIST INTERACTION FIX
+=============================== */
+
+.notes-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.notes-list li {
+  padding: 12px 14px;
+  margin-bottom: 10px;
+
+  background: rgba(24, 58, 96, 0.9);
+  border-radius: 10px;
+
+  cursor: pointer;          /* 👈 HAND CURSOR */
+  user-select: none;        /* 👈 NO TEXT I-BEAM */
+
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+.notes-list li:hover {
+  background: rgba(38, 78, 126, 0.95);
+  transform: translateY(-1px);
 }
 
 /* ======================================
-    SHOOTING STARS (Logic Preserved)
+   SHOOTING STAR BURSTS
+   (3 at a time)
 ====================================== */
+
 .meteors {
   position: fixed;
   top: 0;
@@ -234,71 +290,248 @@ th, td {
   z-index: 1;
 }
 
+/* Shooting star body */
+/* ======================================
+   SHOOTING STARS (1 → 2 → 3 → 4 WAVES)
+====================================== */
+
+/* Shooting star body (70% size) */
 .meteors span {
   position: absolute;
   top: -30%;
-  width: 2px;
-  height: 170px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(80,200,255,0.9), rgba(80,200,255,0));
+
+  width: 2px;          /* 70% of 3px */
+  height: 170px;       /* 70% of 240px */
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0),
+    rgba(80,200,255,0.9),
+    rgba(80,200,255,0)
+  );
+
   border-radius: 50%;
   transform: rotate(-110deg);
-  filter: drop-shadow(0 0 5px rgba(80,200,255,0.8)) drop-shadow(0 0 12px rgba(80,200,255,0.5));
+
+  filter:
+    drop-shadow(0 0 5px rgba(80,200,255,0.8))
+    drop-shadow(0 0 12px rgba(80,200,255,0.5));
+
   opacity: 0;
   animation: shooting-star 4s linear infinite;
 }
 
+/* Glowing head (70% size) */
 .meteors span::before {
   content: "";
   position: absolute;
   top: -6px;
   left: -4px;
+
   width: 8px;
   height: 8px;
-  background: radial-gradient(circle, #ffffff 0%, #8fe2ff 45%, rgba(143,226,255,0) 70%);
+
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    #8fe2ff 45%,
+    rgba(143,226,255,0) 70%
+  );
+
   border-radius: 50%;
 }
 
-/* Wave Delays & Positions */
-.meteors span:nth-child(1) { animation-delay: 0s; right: -22%; }
-.meteors span:nth-child(2), .meteors span:nth-child(3) { animation-delay: 1s; }
+/* ---------- WAVE 1 (1 star | 0s) ---------- */
+.meteors span:nth-child(1) {
+  animation-delay: 0s;
+  right: -22%;
+}
+
+/* ---------- WAVE 2 (2 stars | 1s) ---------- */
+.meteors span:nth-child(2),
+.meteors span:nth-child(3) {
+  animation-delay: 1s;
+}
+
 .meteors span:nth-child(2) { right: -20%; }
 .meteors span:nth-child(3) { right: -26%; }
-.meteors span:nth-child(4), .meteors span:nth-child(5), .meteors span:nth-child(6) { animation-delay: 2s; }
+
+/* ---------- WAVE 3 (3 stars | 2s) ---------- */
+.meteors span:nth-child(4),
+.meteors span:nth-child(5),
+.meteors span:nth-child(6) {
+  animation-delay: 2s;
+}
+
 .meteors span:nth-child(4) { right: -18%; }
 .meteors span:nth-child(5) { right: -24%; }
 .meteors span:nth-child(6) { right: -30%; }
-.meteors span:nth-child(7), .meteors span:nth-child(8), .meteors span:nth-child(9), .meteors span:nth-child(10) { animation-delay: 3s; }
-.meteors span:nth-child(7) { right: -16%; }
-.meteors span:nth-child(8) { right: -22%; }
-.meteors span:nth-child(9) { right: -28%; }
+
+/* ---------- WAVE 4 (4 stars | 3s) ---------- */
+.meteors span:nth-child(7),
+.meteors span:nth-child(8),
+.meteors span:nth-child(9),
+.meteors span:nth-child(10) {
+  animation-delay: 3s;
+}
+
+.meteors span:nth-child(7)  { right: -16%; }
+.meteors span:nth-child(8)  { right: -22%; }
+.meteors span:nth-child(9)  { right: -28%; }
 .meteors span:nth-child(10) { right: -34%; }
 
+/* Shooting star motion */
 @keyframes shooting-star {
-  0% { transform: translate(0, 0) rotate(-110deg); opacity: 0; }
-  8% { opacity: 1; }
-  30% { opacity: 1; }
-  100% { transform: translate(-150vw, 150vh) rotate(-110deg); opacity: 0; }
+  0% {
+    transform: translate(0, 0) rotate(-110deg);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-150vw, 150vh) rotate(-110deg);
+    opacity: 0;
+  }
 }
 
+
+.bg-wave {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at top left, #2f78b5 0%, transparent 45%),
+    radial-gradient(circle at bottom right, #2f78b5 0%, transparent 45%),
+    repeating-linear-gradient(
+      -12deg,
+      rgba(80,200,255,0.12),
+      rgba(80,200,255,0.12) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+
+  /* Very soft fade so it blends naturally */
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    black 65%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    circle at center,
+    black 65%,
+    transparent 100%
+  );
+
+  opacity: 0.65;
+  z-index: 0;
+} 
 /* ======================================
-    RESPONSIVE FIXES
+   RESPONSIVE LAYOUT FIX
+   (Desktop + Mobile Friendly)
 ====================================== */
+
+/* ==============================
+   TABLET (≤ 820px)
+============================== */
 @media (max-width: 820px) {
-  .page-wrapper { 
-    padding: 28px 20px; 
-    /* Fix: Ensuring content fills space without causing a split */
+
+  /* Base text size for tablet */
+  body {
+    font-size: 16px;
+  }
+
+  /* Keep centered layout and fix splitting */
+  .page-wrapper {
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
+    padding: 28px 20px;
+    text-align: center;
   }
-  h1 { font-size: 26px; }
+
+  /* Headings */
+  h1 {
+    font-size: 26px;
+    margin-bottom: 22px;
+  }
+
+  h2, h3 {
+    font-size: 20px;
+  }
+
+  /* Links / buttons */
+  a {
+    font-size: 18px;
+    padding: 18px 20px;
+    border-radius: 16px;
+  }
+
+  button {
+    font-size: 17px;
+    padding: 14px;
+  }
+
+  /* Inputs */
+  input,
+  textarea {
+    font-size: 16px;
+  }
 }
 
+
+/* ==============================
+   MOBILE (≤ 360px)
+============================== */
 @media (max-width: 360px) {
-  .page-wrapper { 
-    padding: 16px; 
+
+  body {
+    font-size: 16px;
   }
-  h1 { font-size: 22px; }
-  .meteors { display: none; }
-  .bg-wave { opacity: 0.25; }
+
+  .page-wrapper {
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  a {
+    font-size: 17px;
+    padding: 16px 18px;
+  }
+
+  input,
+  textarea {
+    font-size: 16px;
+  }
+
+  .meteors {
+    display: none;
+  }
+
+  .bg-wave {
+    opacity: 0.25;
+  }
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
