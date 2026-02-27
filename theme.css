@@ -956,3 +956,180 @@ td {
   color: #d2c6ad;
   margin-left: 12px;
 }
+/* ===============================
+   PREMIUM FOOTER
+================================= */
+
+/* ===============================
+   FULL WIDTH PREMIUM FOOTER
+================================= */
+
+.about-footer {
+  position: relative;
+  margin-top: 140px;
+  padding: 100px 60px;
+  width: 100%;
+
+  background: linear-gradient(
+    160deg,
+    rgba(8,22,44,0.98),
+    rgba(3,12,25,0.98)
+  );
+
+  backdrop-filter: blur(25px);
+  overflow: hidden;
+}
+
+/* Make content wide like hero */
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.footer-brand h2 {
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: #d2c6ad;
+}
+
+.footer-brand p {
+  opacity: 0.6;
+  margin-top: 10px;
+}
+
+.footer-column h4 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.footer-column a {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.6);
+  transition: 0.3s ease;
+}
+
+.footer-column a:hover {
+  color: #d2c6ad;
+}
+/* =====================================
+   ABOUT SECTION WATER FLOW ANIMATION
+===================================== */
+
+/* ======================================
+   FULL FOOTER LIQUID FLOW EFFECT
+====================================== */
+
+.about-footer {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 100%;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 153, 255, 0.25) 0%,
+    rgba(0, 153, 255, 0.12) 30%,
+    rgba(0, 153, 255, 0.06) 50%,
+    transparent 70%
+  );
+
+  animation: footerLiquid 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes footerLiquid {
+  0% {
+    width: 0%;
+    opacity: 0.8;
+  }
+  40% {
+    width: 60%;
+    opacity: 0.6;
+  }
+  70% {
+    width: 120%;
+    opacity: 0.3;
+  }
+  100% {
+    width: 0%;
+    opacity: 0;
+  }
+}
+.index-layout.page-wrapper {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+/* ======================================
+   ULTRA PREMIUM LIQUID GLASS WAVE
+====================================== */
+
+.hero-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Liquid layer */
+.hero-frame::before {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -25%;
+  width: 150%;
+  height: 300%;
+
+  background: radial-gradient(
+      circle at 50% 30%,
+      rgba(0, 70, 160, 0.35) 0%,
+      rgba(4, 83, 174, 0.18) 25%,
+      rgba(6, 86, 176, 0.1) 40%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 60% 70%,
+      rgba(1, 71, 141, 0.25) 0%,
+      rgba(5, 95, 155, 0.12) 30%,
+      transparent 65%
+    );
+
+  filter: blur(40px);
+
+  animation: liquidUltra 4s ease-in-out infinite alternate-reverse;
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Cinematic motion */
+@keyframes liquidUltra {
+  0% {
+    transform: translateY(0%) translateX(0%) rotate(0deg);
+  }
+  50% {
+    transform: translateY(40%) translateX(8%) rotate(1deg);
+  }
+  100% {
+    transform: translateY(80%) translateX(-8%) rotate(-1deg);
+  }
+}
+
+/* Keep content above liquid */
+.hero-frame > * {
+  position: relative;
+  z-index: 2;
+}
