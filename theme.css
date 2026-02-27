@@ -1022,24 +1022,61 @@ td {
    ABOUT SECTION WATER FLOW ANIMATION
 ===================================== */
 
-/* ======================================
-   FULL FOOTER LIQUID FLOW EFFECT
-====================================== */
-
 .about-footer {
   position: relative;
   overflow: hidden;
+  padding: 40px 20px; /* Reduced height as requested */
+  background: linear-gradient(160deg, rgba(8,22,44,0.98), rgba(3,12,25,0.98));
 }
 
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allows wrapping on mobile */
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* FORCES HORIZONTAL ALIGNMENT */
+.footer-row-group {
+  display: flex;
+  flex-direction: row; 
+  gap: 25px;
+  align-items: center;
+}
+
+.footer-row-group a, .disabled-link {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  background: none !important; /* Removes existing boxes */
+  border: none !important;
+  padding: 0 !important;
+  width: auto !important;
+  transition: 0.3s ease;
+}
+
+.footer-row-group a:hover {
+  color: #d2c6ad;
+}
+
+.disabled-link {
+  cursor: default;
+  opacity: 0.35;
+}
+
+/* KEEPING YOUR STABLE ANIMATION AS IS */
 .about-footer::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0%;
-  height: 100%;
-
+  width: 1000px; 
+  height: 1000px;
+  top: -500px;
+  right: -500px;
   background: radial-gradient(
     circle at center,
     rgba(0, 153, 255, 0.25) 0%,
@@ -1047,29 +1084,17 @@ td {
     rgba(0, 153, 255, 0.06) 50%,
     transparent 70%
   );
-
-  animation: footerLiquid 4s ease-in-out infinite;
+  animation: footerDiagonalFlow 6s ease-in-out infinite;
   pointer-events: none;
 }
 
-@keyframes footerLiquid {
-  0% {
-    width: 0%;
-    opacity: 0.8;
-  }
-  40% {
-    width: 60%;
-    opacity: 0.6;
-  }
-  70% {
-    width: 120%;
-    opacity: 0.3;
-  }
-  100% {
-    width: 0%;
-    opacity: 0;
-  }
+@keyframes footerDiagonalFlow {
+  0% { transform: translate(0, 0); opacity: 0; }
+  30% { opacity: 0.6; }
+  70% { opacity: 0.3; }
+  100% { transform: translate(-1200px, 1200px); opacity: 0; }
 }
+
 .index-layout.page-wrapper {
   max-width: 100%;
   padding-left: 0;
