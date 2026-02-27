@@ -6,11 +6,41 @@
   <title>Rekordz | Student Progress Tracker</title>
 
   <link rel="stylesheet" href="theme.css" />
+
+  <style>
+    /* Remove bullet dots */
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    /* Small floating test button */
+    .test-dashboard-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+
+      width: auto;              /* override global 100% width */
+      display: inline-block;    /* prevent stretching */
+
+      padding: 6px 14px;
+      font-size: 13px;
+
+      border-radius: 20px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+  </style>
 </head>
 
 <body class="home">
 
-  <!-- BACKGROUND EFFECTS (ONLY ONCE) -->
+  <!-- Temporary Direct Dashboard Access -->
+  <button class="test-dashboard-btn" onclick="enableTestMode()">
+    Go to Dashboard (Test)
+  </button>
+
+  <!-- BACKGROUND EFFECTS -->
   <div class="bg-wave"></div>
 
   <div class="meteors">
@@ -18,10 +48,11 @@
     <span></span><span></span><span></span><span></span><span></span>
   </div>
 
-  <!-- CONTENT -->
   <main class="page-wrapper">
 
-    <img src="https://lh3.googleusercontent.com/d/16K_p6L_VHxSKcJBFYFt5l0xgztqIHwAm=s2048" alt="Rekordz Logo" class="logo" />
+    <img src="https://lh3.googleusercontent.com/d/16K_p6L_VHxSKcJBFYFt5l0xgztqIHwAm=s2048"
+         alt="Rekordz Logo"
+         class="logo" />
 
     <h1>Welcome to Rekordz</h1>
     <p class="tagline">Student Progress Tracker</p>
@@ -34,16 +65,21 @@
           personal dashboard.
         </p>
       </div>
-<br> <br> 
+
+      <br><br>
+
       <button onclick="login()">Continue with Google</button>
     </section>
-<br> <br>
+
+    <br><br>
+
     <section class="box">
       <h3>📘 About Rekordz</h3>
       <p>
         Rekordz helps students track class tests, tuition progress,
         and personal notes in one secure place.
       </p>
+
       <ul>
         <li>📊 CT result tracking</li>
         <li>📅 Tuition monitoring</li>
@@ -62,6 +98,15 @@
 
   </main>
 
+  <!-- Enable Test Mode -->
+  <script>
+    function enableTestMode() {
+      sessionStorage.setItem("testMode", "true");
+      location.href = "dashboard.html";
+    }
+  </script>
+
+  <!-- Auth Script (ONLY ONCE) -->
   <script type="module" src="auth.js"></script>
 
 </body>

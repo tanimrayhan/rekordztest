@@ -22,10 +22,18 @@ window.logout = async () => {
 };
 
 onAuthStateChanged(auth, user => {
+
+  // 🔥 IMMEDIATE TEST MODE EXIT
+  if (sessionStorage.getItem("testMode") === "true") {
+    console.log("TEST MODE ACTIVE");
+    return;
+  }
+
   const onLogin =
     location.pathname === "/" ||
     location.pathname.endsWith("index.html");
 
   if (user && onLogin) location.href = "dashboard.html";
   if (!user && !onLogin) location.href = "index.html";
+
 });

@@ -9,9 +9,22 @@ import {
 let currentUser = null;
 
 /* ======================
+   TEST MODE MEMORY
+====================== */
+const isTestMode = sessionStorage.getItem("testMode") === "true";
+let tempTuitions = {};
+
+/* ======================
    AUTH GUARD
 ====================== */
 onAuthStateChanged(auth, user => {
+
+  if (sessionStorage.getItem("testMode") === "true") {
+    currentUser = { uid: "test-user" }; // fake user
+    init();
+    return;
+  }
+
   if (!user) {
     location.href = "index.html";
   } else {
@@ -35,10 +48,14 @@ window.addTuition = async function () {
   const name = tuitionName.value.trim();
   if (!name) return alert("Enter tuition name");
 
-  await setDoc(
-    doc(db, "users", currentUser.uid, "tuitions", name),
-    { months: [], showEarning: true }
-  );
+  if (isTestMode) {
+    tempTuitions[name] = { months: [], showEarning: true };
+  } else {
+    await setDoc(
+      doc(db, "users", currentUser.uid, "tuitions", name),
+      { months: [], showEarning: true }
+    );
+  }
 
   tuitionName.value = "";
   loadTuitions();
@@ -46,6 +63,21 @@ window.addTuition = async function () {
 
 async function loadTuitions() {
   tuitionList.innerHTML = "";
+
+  if (isTestMode) {
+
+    Object.keys(tempTuitions).forEach(name => {
+      const div = document.createElement("div");
+      div.className = "tuition";
+      div.textContent = "📘 " + name;
+      div.onclick = () =>
+        location.href = `tuition-details.html?name=${name}`;
+      tuitionList.appendChild(div);
+    });
+
+    return;
+  }
+
   const snap = await getDocs(
     collection(db, "users", currentUser.uid, "tuitions")
   );
@@ -68,6 +100,12 @@ let tuitionId = null, data = null;
 async function loadTuitionDetails() {
   tuitionId = new URLSearchParams(location.search).get("name");
   title.textContent = "📘 " + tuitionId;
+
+  if (isTestMode) {
+    data = tempTuitions[tuitionId] || { months: [], showEarning: true };
+    render();
+    return;
+  }
 
   const ref = doc(db, "users", currentUser.uid, "tuitions", tuitionId);
   const snap = await getDoc(ref);
@@ -119,6 +157,12 @@ window.toggleEarning = async function () {
    SAVE
 ====================== */
 async function save() {
+
+  if (isTestMode) {
+    tempTuitions[tuitionId] = data;
+    return;
+  }
+
   await setDoc(
     doc(db, "users", currentUser.uid, "tuitions", tuitionId),
     data

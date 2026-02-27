@@ -4,22 +4,50 @@
   <title>CT Courses</title>
   <link rel="stylesheet" href="theme.css">
 </head>
+
 <body>
 
-<div class="page-wrapper">
-  <h1>📊 Class Tests</h1>
+  <div class="page-wrapper">
 
-  <div class="box">
-    <input id="courseName" placeholder="Course name">
-    <input id="ctCount" type="number" placeholder="Number of CTs">
-    <button onclick="addCourse()">Add Course</button>
+    <h1>📊 Class Tests</h1>
+
+    <!-- ========================= -->
+    <!-- ADD COURSE SECTION -->
+    <!-- ========================= -->
+    <div class="box">
+      <h3>Add Course</h3>
+
+      <input 
+        id="courseName" 
+        type="text" 
+        placeholder="Course name"
+        autocomplete="off"
+      >
+
+      <input 
+        id="ctCount" 
+        type="number" 
+        placeholder="Number of CTs"
+        min="1"
+      >
+
+      <button onclick="addCourse()">Add Course</button>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- YOUR COURSES SECTION -->
+    <!-- ========================= -->
+    <div class="box">
+      <h3>Your Courses</h3>
+
+      <!-- Courses will appear here -->
+      <div id="courseList"></div>
+    </div>
+
   </div>
 
-  <div class="box">
-    <div id="courseList"></div>
-  </div>
-</div>
+  <script type="module" src="ct.js"></script>
 
-<script type="module" src="ct.js"></script>
 </body>
 </html>
