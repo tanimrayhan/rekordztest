@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 /* ======================================
    GLOBAL RESET
 ====================================== */
@@ -17,14 +18,18 @@ html {
    BODY & BACKGROUND
 ====================================== */
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+font-weight: 400;
+letter-spacing: 0.2px;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
   /* Fix: Ensure background covers the entire scrolling length */
   min-height: 100vh;
   height: auto;
 
   background:
-    radial-gradient(circle at top left, #2f78b5 0%, transparent 45%),
-    radial-gradient(circle at bottom right, #2f78b5 0%, transparent 45%),
+    radial-gradient(circle at top left, #1037b7 0%, transparent 30%),
+    radial-gradient(circle at bottom right, #1037b7 0%, transparent 30%),
     radial-gradient(circle at center, #020b1a 0%, #020b1a 100%);
   
   /* Fix: Keeps the gradient background stable while scrolling to stop splitting */
@@ -62,6 +67,8 @@ h3,
 h4,
 h5,
 h6 {
+  font-weight: 600;
+letter-spacing: -0.3px;
   color: #d2c6ad;
   margin-bottom: 15px;
   position: relative;
@@ -570,4 +577,382 @@ td {
 
 .hidden {
   display: none;
+}
+/* ======================================
+   PREMIUM HERO LAYOUT (INDEX ONLY)
+====================================== */
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 40px;
+}
+
+.hero-left {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-left h1 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-left p {
+  font-size: 18px;
+  opacity: 0.85;
+  margin-bottom: 30px;
+}
+
+.hero-card {
+  flex: 1;
+  background: rgba(8, 22, 44, 0.85);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 0 60px rgba(0,153,255,0.15),
+    inset 0 0 40px rgba(255,255,255,0.02);
+}
+
+/* Features inside card */
+.hero-feature {
+  margin-bottom: 18px;
+  padding: 14px;
+  background: rgba(24, 58, 96, 0.6);
+  border-radius: 12px;
+}
+
+/* Mobile */
+@media (max-width: 820px) {
+  .hero-container {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-left {
+    text-align: center;
+  }
+
+  .hero-left h1 {
+    font-size: 30px;
+  }
+
+  .hero-card {
+    width: 100%;
+  }
+}
+/* ===============================
+   TOP LOGO
+=============================== */
+.top-logo {
+  position: fixed;
+  top: 20px;
+  left: 30px;
+  width: 140px;
+  height: auto;
+  z-index: 1000;
+  filter: drop-shadow(0 0 15px rgba(0,153,255,0.3));
+}
+
+/* ===============================
+   TOP ACTION BUTTONS
+=============================== */
+.top-actions {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.top-btn {
+  width: auto;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.top-btn.secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #d2c6ad;
+}
+
+/* ===============================
+   HERO LAYOUT
+=============================== */
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 120px;
+}
+
+.hero-left {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-left h1 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-left p {
+  font-size: 18px;
+  opacity: 0.85;
+}
+
+.hero-card {
+  flex: 1;
+  background: rgba(8,22,44,0.85);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 0 60px rgba(0,153,255,0.15),
+    inset 0 0 40px rgba(255,255,255,0.02);
+}
+
+.hero-feature {
+  margin-bottom: 18px;
+  padding: 14px;
+  background: rgba(24,58,96,0.6);
+  border-radius: 12px;
+}
+
+/* MOBILE */
+@media (max-width: 820px) {
+  .hero-container {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-left {
+    text-align: center;
+  }
+
+  .hero-left h1 {
+    font-size: 28px;
+  }
+}
+/* ======================================
+   INDEX PAGE ONLY
+====================================== */
+
+.index-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 110px 40px 0 40px;  /* Push content below navbar */
+}
+.index-layout .hero-frame {
+  margin-top: 0;
+  padding: 70px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  background: linear-gradient(
+    145deg,
+    rgba(12,30,60,0.92),
+    rgba(4,15,30,0.88)
+  );
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 0 120px rgba(0,153,255,0.18),
+    inset 0 0 60px rgba(255,255,255,0.04);
+}
+/* ===== HERO TEXT REFINEMENT ===== */
+
+/* ===== FULL JUSTIFIED HERO TEXT ===== */
+
+.index-layout .hero-left {
+  max-width: 560px;
+}
+
+.index-layout .hero-left h1 {
+  font-size: 25px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+
+  text-align: left;
+  text-justify: inter-word;
+}
+
+.index-layout .hero-left p {
+  font-size: 18px;
+  line-height: 1.6;
+  opacity: 0.85;
+
+  text-align: justify;
+  text-justify: inter-word;
+}
+.index-layout .hero-card {
+  flex: 1;
+  padding: 40px;
+  border-radius: 24px;
+  background: linear-gradient(
+    160deg,
+    rgba(12,30,55,0.9),
+    rgba(6,18,35,0.8)
+  );
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow:
+    0 0 90px rgba(0,153,255,0.12),
+    inset 0 0 40px rgba(255,255,255,0.02);
+}
+
+.index-layout .hero-feature {
+  padding: 18px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: rgba(30,65,105,0.6);
+  transition: all 0.3s ease;
+}
+
+.index-layout .hero-feature:hover {
+  background: rgba(40,85,135,0.85);
+  transform: translateY(-3px);
+}
+/* ======================================
+   INDEX SECTION DIVIDER
+====================================== */
+
+
+/* ======================================
+   PREMIUM GLASS NAVBAR
+====================================== */
+
+/* ======================================
+   FULL WIDTH PREMIUM GLASS NAVBAR
+====================================== */
+
+.glass-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 60px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(12,30,60,0.92),
+    rgba(5,18,35,0.9)
+  );
+
+  backdrop-filter: blur(30px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 8px 40px rgba(0,153,255,0.15);
+
+  z-index: 1000;
+}
+
+/* Adjust logo position inside navbar */
+.top-logo {
+  height: 44px;   /* CHANGE THIS VALUE TO RESIZE */
+  width: auto;
+  object-fit: contain;
+}
+/* ======================================
+   NAVBAR LIGHT ANIMATION
+====================================== */
+
+.glass-navbar {
+  overflow: hidden;
+  position: fixed;
+}
+
+/* ======================================
+   LIQUID CENTER FLOW NAVBAR EFFECT
+====================================== */
+
+.glass-navbar {
+  position: fixed;
+  overflow: hidden;
+}
+
+/* Water ripple layer */
+.glass-navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0%;
+  height: 100%;
+  transform: translateX(-50%);
+
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 153, 255, 0.35) 0%,
+    rgba(0, 153, 255, 0.18) 20%,
+    rgba(0, 153, 255, 0.08) 40%,
+    transparent 70%
+  );
+
+  animation: liquidFlow 3.5s ease-in-out infinite;
+}
+
+/* Center → expand → fade */
+@keyframes liquidFlow {
+  0% {
+    width: 0%;
+    opacity: 0.9;
+  }
+  40% {
+    width: 60%;
+    opacity: 0.7;
+  }
+  70% {
+    width: 100%;
+    opacity: 0.3;
+  }
+  100% {
+    width: 0%;
+    opacity: 0;
+  }
+}
+/* ===============================
+   NAVBAR BRAND ALIGNMENT FIX
+=============================== */
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-title {
+  font-size: 20px;
+  letter-spacing: 4px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1;
+  color: #d2c6ad;
+  margin-left: 12px;
 }
