@@ -1247,4 +1247,17 @@ td {
     justify-content: flex-end !important;
     gap: 12px !important;
   }
+  @media (max-width: 820px) {
+  
+  /* ... your existing footer code ... */
+
+  .mobile-hide {
+    display: none !important;
+  }
+  
+  /* Optional: Remove the extra dot if it looks weird after "Improve" */
+  .footer-brand p {
+    white-space: nowrap;
+  }
+}
 }
