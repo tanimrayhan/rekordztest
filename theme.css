@@ -585,35 +585,44 @@ td {
 .hero-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 60px;
-  width: 100%;
+  justify-content: center;
+  /* 1. This is the ONLY gap that will exist now */
+  gap: 30px; 
+  
+  /* 2. Forces the container to shrink to the content's size */
+  width: fit-content; 
   max-width: 1100px;
-  margin-top: 40px;
+  
+  /* 3. Centers the entire shrunk container on the page */
+  margin: 0 auto; 
 }
 
 .hero-left {
-  flex: 1;
+  /* 4. Prevents the left side from taking extra space */
+  flex: 0 1 auto; 
   text-align: left;
+  /* Adjust this to keep your text from being too long/short */
+  max-width: 450px; 
 }
 
 .hero-left h1 {
   font-size: 42px;
   line-height: 1.2;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .hero-left p {
   font-size: 18px;
   opacity: 0.85;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .hero-card {
-  flex: 1;
+  /* 5. Prevents the card from taking extra space */
+  flex: 0 1 auto; 
   background: rgba(8, 22, 44, 0.85);
   border-radius: 20px;
-  padding: 30px;
+  padding: 20px;
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow:
@@ -621,28 +630,26 @@ td {
     inset 0 0 40px rgba(255,255,255,0.02);
 }
 
-/* Features inside card */
+/* Features inside card - No changes here */
 .hero-feature {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   padding: 14px;
   background: rgba(24, 58, 96, 0.6);
   border-radius: 12px;
 }
 
-/* Mobile */
+/* Mobile - Keeps it centered and stacked */
 @media (max-width: 820px) {
   .hero-container {
     flex-direction: column;
-    gap: 40px;
+    width: 90%; /* On mobile, let it take more width */
+    gap: 30px;
     text-align: center;
   }
 
   .hero-left {
     text-align: center;
-  }
-
-  .hero-left h1 {
-    font-size: 30px;
+    max-width: 100%;
   }
 
   .hero-card {
@@ -758,11 +765,16 @@ td {
 .index-layout {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 110px 40px 0 40px;  /* Push content below navbar */
+  /* RED GAP: Keeps the space between Glass Navbar and Hero */
+  padding: 200px 20px 0 20px; 
+  /* CHANGE: Removing min-height: 100vh stops the hero from stretching to fill the screen */
+  min-height: auto !important; 
+   /* Ensures it doesn't behave like a flex-center wrapper */
 }
 .index-layout .hero-frame {
   margin-top: 0;
-  padding: 70px;
+  /* GREEN GAP FIX: Shrunk from 70px to 25px to fit the text perfectly */
+  padding: 20px 40px; 
   border-radius: 30px;
   border: 1px solid rgba(255,255,255,0.08);
 
@@ -772,8 +784,16 @@ td {
     rgba(4,15,30,0.88)
   );
 
-  backdrop-filter: blur(20px);
+ /* VERTICAL CENTERING LOGIC */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers content vertically */
+  align-items: center;     /* Centers content horizontally */
+  
+  /* Give it a set height or min-height so the centering is visible */
+  min-height: 450px; 
 
+  backdrop-filter: blur(20px);
   box-shadow:
     0 0 120px rgba(0,153,255,0.18),
     inset 0 0 60px rgba(255,255,255,0.04);
