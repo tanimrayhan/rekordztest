@@ -1178,3 +1178,26 @@ td {
   position: relative;
   z-index: 2;
 }
+/* =========================
+   MOBILE FOOTER ALIGN FIX
+   ========================= */
+
+@media (max-width: 820px) {
+
+  .footer-container,
+  .footer-grid,
+  .about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;   /* shift to right */
+    text-align: right;       /* align text right */
+    padding-right: 20px;
+  }
+
+  .footer-container div,
+  .footer-grid div,
+  .about-container div {
+    width: auto;             /* stop full width */
+  }
+
+}
