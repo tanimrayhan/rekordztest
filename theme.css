@@ -695,12 +695,9 @@ td {
    TOP ACTION BUTTONS
 =============================== */
 .top-actions {
-  position: fixed;
-  top: 20px;
-  right: 30px;
   display: flex;
-  gap: 15px;
-  z-index: 1000;
+  align-items: center;
+  gap: 12px;
 }
 
 .top-btn {
@@ -999,7 +996,7 @@ td {
 .nav-left {
   display: flex;
   align-items: center;
-  gap: -2px;
+  gap: 6px;
 }
 
 .brand-title {
@@ -1009,7 +1006,7 @@ td {
   margin: 0;
   line-height: 1;
   color: #d2c6ad;
-  margin-left: 12px;
+  margin-left: 2px;
 }
 /* ===============================
    PREMIUM FOOTER
@@ -1363,26 +1360,44 @@ td {
 
   .mobile-navbar {
 
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
 
-    width: 100%;
-    height: 70px;
+  width: 100%;
+  height: 90px;
 
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    padding: 0 12px;
+  padding: 0 25px;
 
-    backdrop-filter: blur(12px);
-    background: rgba(10, 25, 50, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(
+    90deg,
+    rgba(10, 30, 60, 0.9),
+    rgba(5, 20, 40, 0.9)
+  );
 
-    z-index: 2000;
-  }
+  border-bottom: 1px solid rgba(173,216,230,0.2);
+
+  z-index: 1000;
+
+  animation: navGlow 6s ease-in-out infinite;
+
+}
+
+  border-bottom: 1px solid rgba(173,216,230,0.2);
+
+  z-index: 1000;
+
+  animation: navGlow 6s ease-in-out infinite;
+
+  display: flex; /* keep only ONE display here */
+}
 
   .mobile-navbar img {
     width: 40px;
@@ -1407,6 +1422,172 @@ td {
 
   .page-wrapper {
     padding-top: 80px;
+  }
+
+}
+/* ===== MOBILE NAVBAR SWITCH ===== */
+
+@media (max-width: 820px) {
+
+  .main-navbar {
+    display: none !important;
+  }
+
+  .mobile-navbar {
+    display: flex !important;
+  }
+
+}
+@keyframes navGlow {
+
+  0% {
+    box-shadow: 0 0 10px rgba(173,216,230,0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(173,216,230,0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 10px rgba(173,216,230,0.2);
+  }
+
+}
+/* ===== MOBILE NAVBAR LIQUID EFFECT ===== */
+
+.mobile-navbar {
+  position: fixed;
+  overflow: hidden;
+}
+
+.mobile-navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0%;
+  height: 100%;
+  transform: translateX(-50%);
+
+  background: radial-gradient(
+    circle at center,
+    rgba(0,153,255,0.35) 0%,
+    rgba(0,153,255,0.18) 20%,
+    rgba(0,153,255,0.08) 40%,
+    transparent 70%
+  );
+
+  animation: liquidFlow 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+/* =====================================
+   UNIVERSAL MOBILE GLASS NAVBAR
+   (for all pages except dashboard)
+===================================== */
+
+.mobile-logout-navbar {
+  display: none;
+}
+
+@media (max-width: 820px) {
+
+  .glass-navbar {
+    display: none !important;
+  }
+
+  .mobile-logout-navbar {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    background: linear-gradient(
+      90deg,
+      rgba(10,30,60,0.95),
+      rgba(5,20,40,0.95)
+    );
+
+    border-bottom: 1px solid rgba(173,216,230,0.2);
+
+    z-index: 2000;
+
+    overflow: hidden;
+  }
+
+  /* glow animation */
+
+  .mobile-logout-navbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0%;
+    height: 100%;
+    transform: translateX(-50%);
+
+    background: radial-gradient(
+      circle,
+      rgba(0,153,255,0.35),
+      transparent 70%
+    );
+
+    animation: liquidFlow 3.5s ease-in-out infinite;
+  }
+
+  /* logo */
+
+  .mobile-logout-navbar .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mobile-logout-navbar img {
+    height: 34px;
+  }
+
+  .mobile-logout-navbar .brand-title {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  /* logout button right */
+
+  .mobile-logout-navbar .logout-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 18px;
+  }
+
+}
+/* ===== FIX LOGOUT BUTTON WIDTH ===== */
+
+@media (max-width: 820px) {
+
+  .mobile-logout-navbar button {
+    width: auto !important;
+    display: inline-block !important;
+    padding: 6px 14px !important;
+  }
+
+  .mobile-logout-navbar {
+    justify-content: space-between;
+  }
+
+  .mobile-logout-navbar .logout-btn {
+    margin-left: auto;
   }
 
 }
