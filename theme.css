@@ -1591,3 +1591,30 @@ td {
   }
 
 }
+/* ===== NAVBAR ATTENTION GLOW ===== */
+
+.nav-attention {
+
+  background: linear-gradient(
+    135deg,
+    #fff2cc,
+    #f3ddb0
+  ) !important;
+
+  color: #1a1a1a !important;
+
+  box-shadow:
+    0 0 10px rgba(255,230,150,0.7),
+    0 0 25px rgba(255,220,120,0.6),
+    0 0 40px rgba(255,200,100,0.4);
+
+  animation: navPulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes navPulse {
+
+  0% { transform: scale(1); }
+
+  100% { transform: scale(1.05); }
+
+}

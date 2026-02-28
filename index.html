@@ -46,8 +46,17 @@
   </div>
 
   <div class="top-actions">
-    <button onclick="login()" class="top-btn">Login</button>
-    <button onclick="enableTestMode()" class="top-btn secondary">Preview</button>
+    <button id="loginBtn"
+        onclick="login()"
+        class="top-btn">
+  Login
+</button>
+
+<button id="previewBtn"
+        onclick="enableTestMode()"
+        class="top-btn secondary">
+  Preview
+</button>
   </div>
 
 </div>
@@ -61,8 +70,17 @@
   </div>
 
   <div class="top-actions">
-    <button onclick="login()" class="top-btn">Login</button>
-<button onclick="enableTestMode()" class="top-btn secondary">Preview</button>
+    <button id="loginBtn"
+        onclick="login()"
+        class="top-btn">
+  Login
+</button>
+
+<button id="previewBtn"
+        onclick="enableTestMode()"
+        class="top-btn secondary">
+  Preview
+</button>
   </div>
 
 </div>
@@ -156,6 +174,31 @@
 
   <!-- Auth Script (ONLY ONCE) -->
   <script type="module" src="auth.js"></script>
+<script>
 
+const boxes = document.querySelectorAll(".feature-box");
+
+const loginBtn = document.getElementById("loginBtn");
+const previewBtn = document.getElementById("previewBtn");
+
+boxes.forEach(box => {
+
+  box.addEventListener("click", () => {
+
+    loginBtn.classList.add("nav-attention");
+    previewBtn.classList.add("nav-attention");
+
+    setTimeout(() => {
+
+      loginBtn.classList.remove("nav-attention");
+      previewBtn.classList.remove("nav-attention");
+
+    }, 2000);
+
+  });
+
+});
+
+</script>
 </body>
 </html>
