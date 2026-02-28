@@ -1188,9 +1188,9 @@ td {
   .footer-grid,
   .about-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;   /* shift to right */
-    text-align: right;       /* align text right */
+    flex-direction: row;
+    align-items: flex-start;   /* shift to right */
+    text-align: left;       /* align text right */
     padding-right: 20px;
   }
 
