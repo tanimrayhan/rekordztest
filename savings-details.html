@@ -72,5 +72,33 @@
   </div>
   <script type="module" src="auth.js"></script>
   <script type="module" src="savings.js"></script>
+  <script>
+
+if (sessionStorage.getItem("testMode") === "true") {
+
+  const banner = document.createElement("div");
+
+  banner.className = "test-banner";
+
+  banner.innerText =
+    "Preview mode — data will not be saved. Please login to record your progress.";
+
+  const spacer = document.querySelector('div[style*="height"]');
+
+  if (spacer) {
+    spacer.after(banner);
+  } else {
+
+    const wrapper = document.querySelector(".page-wrapper");
+
+    if (wrapper) {
+      wrapper.before(banner);
+    }
+
+  }
+
+}
+
+</script>
 </body>
 </html>
