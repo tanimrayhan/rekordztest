@@ -178,20 +178,30 @@
 
 const boxes = document.querySelectorAll(".feature-box");
 
-const loginBtn = document.getElementById("loginBtn");
-const previewBtn = document.getElementById("previewBtn");
+const loginBtns = document.querySelectorAll("#loginBtn");
+const previewBtns = document.querySelectorAll("#previewBtn");
 
 boxes.forEach(box => {
 
   box.addEventListener("click", () => {
 
-    loginBtn.classList.add("nav-attention");
-    previewBtn.classList.add("nav-attention");
+    loginBtns.forEach(btn => {
+      btn.classList.add("nav-attention");
+    });
+
+    previewBtns.forEach(btn => {
+      btn.classList.add("nav-attention");
+    });
 
     setTimeout(() => {
 
-      loginBtn.classList.remove("nav-attention");
-      previewBtn.classList.remove("nav-attention");
+      loginBtns.forEach(btn => {
+        btn.classList.remove("nav-attention");
+      });
+
+      previewBtns.forEach(btn => {
+        btn.classList.remove("nav-attention");
+      });
 
     }, 2000);
 
