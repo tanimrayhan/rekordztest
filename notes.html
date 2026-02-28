@@ -2,18 +2,24 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Note</title>
+  <title>Notes</title>
   <link rel="stylesheet" href="theme.css">
 </head>
 <body>
 
 <div class="page-wrapper">
-  <h1>Edit Note</h1>
+  <h1>📝 Notes</h1>
 
   <div class="box">
-    <input id="title" placeholder="Note Title">
-    <textarea id="content" placeholder="Write your notes here..."></textarea>
-    <button onclick="saveNote()">Save Changes</button>
+    <h3>Add New Note</h3>
+    <input id="title" placeholder="Note title" autocomplete="off">
+    <button onclick="addNote()">Add Note</button>
+  </div>
+
+  <div class="box">
+    <h3>Your Notes</h3>
+    <ul id="notesList" class="notes-list">
+      </ul>
   </div>
 </div>
 

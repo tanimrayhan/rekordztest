@@ -10,7 +10,7 @@ let user = null;
 
 /* ======================
    TEST MODE MEMORY
-   Persistent sessionStorage logic (like CT system)
+   Uses sessionStorage to keep data alive between pages
 ====================== */
 const isTestMode = sessionStorage.getItem("testMode") === "true";
 let tempNotes = isTestMode ? JSON.parse(sessionStorage.getItem("tempNotes") || "{}") : {};
@@ -32,9 +32,6 @@ onAuthStateChanged(auth, u => {
   }
 });
 
-/* ======================
-   INITIALIZER
-====================== */
 function init() {
   if (typeof notesList !== "undefined" && notesList) loadNotes();
   if (typeof content !== "undefined" && content) loadNote();
@@ -47,11 +44,10 @@ async function loadNotes() {
   notesList.innerHTML = "";
 
   if (isTestMode) {
-    // Ensure we have latest from storage
     tempNotes = JSON.parse(sessionStorage.getItem("tempNotes") || "{}");
     Object.keys(tempNotes).forEach(id => {
       const li = document.createElement("li");
-      li.className = "tuition"; // Match your existing list style
+      li.className = "tuition"; // Styling to match your CT list
       li.textContent = tempNotes[id].title;
       li.onclick = () => location.href = `note-details.html?id=${id}`;
       notesList.appendChild(li);
@@ -59,7 +55,6 @@ async function loadNotes() {
     return;
   }
 
-  // FIREBASE SYSTEM
   const snap = await getDocs(collection(db, "users", user.uid, "notes"));
   snap.forEach(n => {
     const li = document.createElement("li");
@@ -79,10 +74,8 @@ window.addNote = async () => {
   if (isTestMode) {
     const id = Date.now().toString();
     tempNotes[id] = { title: title.value, content: "" };
-    // Persist to session storage
     sessionStorage.setItem("tempNotes", JSON.stringify(tempNotes));
   } else {
-    // FIREBASE SYSTEM
     await addDoc(collection(db, "users", user.uid, "notes"), {
       title: title.value,
       content: ""
@@ -94,13 +87,12 @@ window.addNote = async () => {
 };
 
 /* ======================
-   LOAD NOTE DETAILS
+   LOAD NOTE DETAILS (In note-details.html)
 ====================== */
 async function loadNote() {
   const id = new URLSearchParams(location.search).get("id");
 
   if (isTestMode) {
-    // Retrieve from session storage for persistence
     tempNotes = JSON.parse(sessionStorage.getItem("tempNotes") || "{}");
     const note = tempNotes[id] || { title: "", content: "" };
     title.value = note.title;
@@ -108,7 +100,6 @@ async function loadNote() {
     return;
   }
 
-  // FIREBASE SYSTEM
   const snap = await getDoc(doc(db, "users", user.uid, "notes", id));
   title.value = snap.data().title;
   content.value = snap.data().content;
@@ -123,14 +114,13 @@ window.saveNote = async () => {
   if (isTestMode) {
     tempNotes = JSON.parse(sessionStorage.getItem("tempNotes") || "{}");
     if (tempNotes[id]) {
-      tempNotes[id].title = title.value; // Sync updated title
+      tempNotes[id].title = title.value; // Sync the title
       tempNotes[id].content = content.value;
       sessionStorage.setItem("tempNotes", JSON.stringify(tempNotes));
     }
   } else {
-    // FIREBASE SYSTEM
     await updateDoc(doc(db, "users", user.uid, "notes", id), {
-      title: title.value, // Now also updates the title in Firestore
+      title: title.value, // Now also updates title in Firebase
       content: content.value
     });
   }
