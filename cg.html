@@ -2,12 +2,16 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CT Details</title>
+  <title>CGPA Calculator</title>
   <link rel="stylesheet" href="theme.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Fix for the hand cursor */
+    .person-item { cursor: pointer; transition: 0.2s; }
+    .person-item:hover { background: #252545; }
+  </style>
 </head>
 <body>
-<div class="glass-navbar">
+    <div class="glass-navbar">
 
   <div class="nav-left" onclick="location.href='index.html'" style="cursor:pointer;">
 
@@ -27,21 +31,18 @@
 <div style="height:110px;"></div>
 
 <div class="page-wrapper">
-  <h1 id="courseTitle"></h1>
-
-  <div class="box" id="resultBox" style="text-align: center; font-size: 1.2rem; font-weight: bold; color: #f5fadc;"></div>
-
-  <div class="box" id="inputsBox"></div>
-
-  <div class="box" style="text-align: center;">
-    <button onclick="saveCT()">Save Changes</button>
+    <h1>🎓 CGPA Tracker</h1>
+    <div class="box">
+      <h3>Add Person</h3>
+      <input id="personName" placeholder="Enter Name">
+      <button onclick="addPerson()">Add Person</button>
+    </div>
+    <div class="box">
+      <h3>Persons</h3>
+      <div id="personList"></div>
+    </div>
   </div>
-
-  <div class="box">
-    <canvas id="ctChart"></canvas>
-  </div>
-</div>
-<script type="module" src="auth.js"></script>
-<script type="module" src="ct.js"></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="cg.js"></script>
 </body>
 </html>

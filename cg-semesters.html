@@ -2,12 +2,17 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CT Details</title>
+  <title>Semesters</title>
   <link rel="stylesheet" href="theme.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Add this to make the hand cursor appear */
+    .semester-item { cursor: pointer; transition: 0.2s; }
+    .semester-item:hover { background: #252545; }
+  </style>
 </head>
 <body>
-<div class="glass-navbar">
+    <div class="glass-navbar">
 
   <div class="nav-left" onclick="location.href='index.html'" style="cursor:pointer;">
 
@@ -27,21 +32,25 @@
 <div style="height:110px;"></div>
 
 <div class="page-wrapper">
-  <h1 id="courseTitle"></h1>
-
-  <div class="box" id="resultBox" style="text-align: center; font-size: 1.2rem; font-weight: bold; color: #f5fadc;"></div>
-
-  <div class="box" id="inputsBox"></div>
-
-  <div class="box" style="text-align: center;">
-    <button onclick="saveCT()">Save Changes</button>
+  <h1 id="personTitle"></h1>
+  
+  <div class="box">
+    <h3>Add Semester/Year</h3>
+    <input id="semName" placeholder="e.g. 1st Semester">
+    <button onclick="addSemester()">Add Semester</button>
   </div>
 
   <div class="box">
-    <canvas id="ctChart"></canvas>
+    <h3>Semester/Year List</h3>
+    <div id="semList"></div>
+  </div>
+
+  <div class="box">
+    <h3>CG Progress Visualization</h3>
+    <canvas id="cgChart"></canvas>
   </div>
 </div>
 <script type="module" src="auth.js"></script>
-<script type="module" src="ct.js"></script>
+<script type="module" src="cg.js"></script>
 </body>
 </html>

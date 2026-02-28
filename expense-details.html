@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Details</title>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+    <div class="glass-navbar">
+
+  <div class="nav-left" onclick="location.href='index.html'" style="cursor:pointer;">
+
+    <img src="https://lh3.googleusercontent.com/d/1-3gBM8KfnJ30iMBT_7JnQwRnHRbIMHo0=s2048"
+         class="top-logo">
+
+    <h1 class="brand-title">REKORDZ</h1>
+
+  </div>
+
+  <div class="top-actions">
+    <button onclick="logout()" class="top-btn">Logout</button>
+  </div>
+
+</div>
+
+<div style="height:110px;"></div>
+
+<div class="page-wrapper">
+    <h1 id="title">Duration Name</h1>
+    <div class="box">
+      <h3>Add New Expense</h3>
+      <input id="expTitle" placeholder="Expense Title (e.g. Food)">
+      <input id="expAmount" type="number" placeholder="Amount">
+      <button onclick="addExpenseItem()">Add Expense</button>
+    </div>
+    <div class="box">
+      <h3>Your Expenses</h3>
+      <div id="itemsList"></div>
+      <h3 id="totalDisplay" style="text-align: center; margin-top: 20px; color: #add8e6; border-top: 1px solid #444; padding-top: 15px;">Total: 0</h3>
+    </div>
+  </div>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="expense.js"></script>
+</body>
+</html>

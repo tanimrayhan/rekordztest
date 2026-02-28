@@ -17,7 +17,19 @@ window.login = async () => {
 };
 
 window.logout = async () => {
-  await signOut(auth);
+
+  // sign out firebase if logged in
+  try {
+    await signOut(auth);
+  } catch (e) {}
+
+  // remove test mode
+  sessionStorage.removeItem("testMode");
+
+  // remove temporary test data (absent tracker etc)
+  sessionStorage.removeItem("tempAbsents");
+
+  // go to home
   location.href = "index.html";
 };
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Savings Tracker</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .savings-item { cursor: pointer; transition: 0.2s; }
+    .savings-item:hover { 
+      background: #252545; 
+      box-shadow: 0 0 10px rgba(173, 216, 230, 0.3); 
+    }
+  </style>
+</head>
+<body>
+    <div class="glass-navbar">
+
+  <div class="nav-left" onclick="location.href='index.html'" style="cursor:pointer;">
+
+    <img src="https://lh3.googleusercontent.com/d/1-3gBM8KfnJ30iMBT_7JnQwRnHRbIMHo0=s2048"
+         class="top-logo">
+
+    <h1 class="brand-title">REKORDZ</h1>
+
+  </div>
+
+  <div class="top-actions">
+    <button onclick="logout()" class="top-btn">Logout</button>
+  </div>
+
+</div>
+
+<div style="height:110px;"></div>
+
+<div class="page-wrapper">
+    <h1>💰 Savings Tracker</h1>
+    <div class="box">
+      <h3>Add Duration</h3>
+      <input id="durationTitle" placeholder="e.g. March 2024, Monday, or 2024">
+      <button onclick="addDuration()">Add Savings Period</button>
+    </div>
+    <div class="box">
+      <h3>Savings Periods</h3>
+      <div id="savingsList"></div>
+    </div>
+  </div>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="savings.js"></script>
+</body>
+</html>

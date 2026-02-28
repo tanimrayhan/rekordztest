@@ -2,12 +2,11 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CT Details</title>
+  <title>Semester Details</title>
   <link rel="stylesheet" href="theme.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<div class="glass-navbar">
+   <div class="glass-navbar">
 
   <div class="nav-left" onclick="location.href='index.html'" style="cursor:pointer;">
 
@@ -27,21 +26,26 @@
 <div style="height:110px;"></div>
 
 <div class="page-wrapper">
-  <h1 id="courseTitle"></h1>
-
-  <div class="box" id="resultBox" style="text-align: center; font-size: 1.2rem; font-weight: bold; color: #f5fadc;"></div>
-
-  <div class="box" id="inputsBox"></div>
-
-  <div class="box" style="text-align: center;">
-    <button onclick="saveCT()">Save Changes</button>
+  <h1 id="semTitle"></h1>
+  <div class="box">
+    <h3>Add Course</h3>
+    <input id="courseTitle" placeholder="Course Name">
+    <input id="credits" type="number" step="0.1" placeholder="Credits">
+    <input id="gpa" type="number" step="0.01" placeholder="GPA">
+    <button onclick="addCourse()">Add Course</button>
   </div>
 
   <div class="box">
-    <canvas id="ctChart"></canvas>
+    <div id="courseList"></div>
+    <hr>
+    <h3 id="semCg" style="text-align: center; color: #add8e6;"></h3>
+  </div>
+  
+  <div class="box" style="text-align:center; background: #252545;">
+      <h2 id="overallCgDisplay" style="color: #f5fadc; margin: 0;"></h2>
   </div>
 </div>
 <script type="module" src="auth.js"></script>
-<script type="module" src="ct.js"></script>
+<script type="module" src="cg.js"></script>
 </body>
 </html>

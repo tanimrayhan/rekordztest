@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Absent Tracker</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .course-item { cursor: pointer; transition: 0.2s; }
+    .course-item:hover { background: #252545; box-shadow: 0 0 10px rgba(173, 216, 230, 0.2); }
+  </style>
+</head>
+<body>
+  <div class="glass-navbar">
+
+  <div class="nav-left" onclick="location.href='index.html'" style="cursor:pointer;">
+
+    <img src="https://lh3.googleusercontent.com/d/1-3gBM8KfnJ30iMBT_7JnQwRnHRbIMHo0=s2048"
+         class="top-logo">
+
+    <h1 class="brand-title">REKORDZ</h1>
+
+  </div>
+
+  <div class="top-actions">
+    <button onclick="logout()" class="top-btn">Logout</button>
+  </div>
+
+</div>
+
+<div style="height:110px;"></div>
+
+<div class="page-wrapper">
+    <h1>📌 Absent Tracker</h1>
+    <div class="box">
+      <h3>Add Course</h3>
+      <input id="courseName" placeholder="Enter Course Name">
+      <button onclick="addCourse()">Add Course</button>
+    </div>
+    <div class="box">
+      <h3>Your Courses</h3>
+      <div id="courseList"></div>
+    </div>
+  </div>
+  <script type="module" src="auth.js"></script>
+<script type="module" src="absent.js"></script>
+</body>
+</html>

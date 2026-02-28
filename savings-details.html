@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Savings Details</title>
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<div class="glass-navbar">
+
+  <div class="nav-left" onclick="location.href='index.html'" style="cursor:pointer;">
+
+    <img src="https://lh3.googleusercontent.com/d/1-3gBM8KfnJ30iMBT_7JnQwRnHRbIMHo0=s2048"
+         class="top-logo">
+
+    <h1 class="brand-title">REKORDZ</h1>
+
+  </div>
+
+  <div class="top-actions">
+    <button onclick="logout()" class="top-btn">Logout</button>
+  </div>
+
+</div>
+
+<div style="height:110px;"></div>
+
+<div class="page-wrapper">
+    <h1 id="title">Duration Name</h1>
+
+    <div class="box">
+      <h3>Set Savings Goal</h3>
+      <input id="goalAmount" type="number" placeholder="Enter Goal Amount (e.g. 5000)">
+      <button onclick="updateGoal()">Set Goal</button>
+    </div>
+
+    <div class="box">
+      <h3>Add New Savings</h3>
+      <input id="savTitle" placeholder="Source (e.g. Salary, Gift)">
+      <input id="savAmount" type="number" placeholder="Amount">
+      <button onclick="addSavingsItem()">Add Savings</button>
+    </div>
+
+    <div class="box">
+      <h3>Your Savings</h3>
+      <div id="itemsList"></div>
+      
+      <div style="margin-top: 20px; border-top: 1px solid #444; padding-top: 15px; text-align: center;">
+        <h3 id="totalDisplay" style="color: #add8e6; margin: 5px 0;">Total Savings: 0</h3>
+        <h3 id="goalDisplay" style="color: #f5fadc; margin: 5px 0; font-size: 1rem;">Goal: 0</h3>
+        <h3 id="remainingDisplay" style="color: #ff9999; margin: 5px 0;">Remaining: 0</h3>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="savings.js"></script>
+</body>
+</html>
