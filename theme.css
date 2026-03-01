@@ -1875,12 +1875,15 @@ td {
   }
 
 }
-@media (min-width: 821px) {
+/* ===== MOBILE FOOTER NO WRAP ===== */
 
-  .footer-brand p {
-    margin: 4px 0 0 0 !important;
-    letter-spacing: 0 !important;
-    word-spacing: -1px !important;
+@media (max-width: 820px) {
+
+  .footer-row-group a,
+  .footer-row-group span {
+
+    white-space: nowrap;
+    font-size: 12px;
   }
 
 }
