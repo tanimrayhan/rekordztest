@@ -280,44 +280,50 @@ monthDiv.innerHTML = `
     </button>
   </div>
 
-  <div style="text-align: center; width: 100%;">
-    Classes: ${m.classes}<br>
+ <div style="text-align: center; width: 100%;">
 
-${m.dates.map((d, j) => {
+  Classes: ${m.classes}<br>
+  Total taken: ${m.dates.filter(d => d).length}<br>
 
-  let displayVal = "";
+  <div style="margin-top:5px;">
 
-  if (d) {
+  ${m.dates.map((d, j) => {
 
-    const p = d.split("-");
+    let displayVal = "";
 
-    // if stored dd-mm-yy
-    if (p.length === 3 && p[0].length === 2) {
-      displayVal = `20${p[2]}-${p[1]}-${p[0]}`;
+    if (d) {
+
+      const p = d.split("-");
+
+      // dd-mm-yy
+      if (p.length === 3 && p[0].length === 2) {
+        displayVal = `20${p[2]}-${p[1]}-${p[0]}`;
+      }
+
+      // mm-dd-yy old
+      else if (p.length === 3 && p[1].length === 2) {
+        displayVal = `20${p[2]}-${p[0]}-${p[1]}`;
+      }
+
+      // yyyy-mm-dd
+      else if (p.length === 3 && p[0].length === 4) {
+        displayVal = d;
+      }
+
     }
 
-    // if stored mm-dd-yy (old data)
-    else if (p.length === 3 && p[1].length === 2) {
-      displayVal = `20${p[2]}-${p[0]}-${p[1]}`;
-    }
+    return `
+      <input type="date"
+        value="${displayVal}"
+        onchange="updateDate(${i},${j},this.value)"
+        style="margin:3px; width:48%; display:inline-block;">
+    `;
 
-    // if already yyyy-mm-dd
-    else if (p.length === 3 && p[0].length === 4) {
-      displayVal = d;
-    }
+  }).join('')}
 
-  }
+  </div>
 
-  return `
-    <input type="date"
-      value="${displayVal}"
-      onchange="updateDate(${i},${j},this.value)"
-      style="margin: 3px 0; display: block; width: 100%;">
-  `;
-}).join('')}
-
-${data.showEarning ? `<p style="margin-top: 10px;">💰 Earning: ${m.earning}</p>` : ""}
-
+  ${data.showEarning ? `<p style="margin-top:10px;">💰 Earning: ${m.earning}</p>` : ""}
 
 </div>
 `;
