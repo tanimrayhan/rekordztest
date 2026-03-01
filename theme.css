@@ -1907,3 +1907,17 @@ td {
   }
 
 }
+textarea {
+
+  min-height: 220px;
+}
+
+@media (max-width: 820px) {
+
+  textarea {
+
+    min-height: 320px;
+
+  }
+
+}
