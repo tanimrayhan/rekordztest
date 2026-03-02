@@ -47,9 +47,40 @@
   <h1>Edit Note</h1>
 
   <div class="box">
-    <input id="title">
-    <textarea id="content"></textarea>
+    <input id="title" placeholder="Note Title">
+    
+    <textarea id="content" maxlength="100" placeholder="Write your note here..." oninput="updateCount()"></textarea>
+    
+    <div id="char-count-wrapper" style="text-align: right; font-size: 12px; color: rgba(255,255,255,0.6); margin-top: -10px; margin-bottom: 10px; padding-right: 5px;">
+      <span id="current-chars">0</span>/100
+    </div>
+
     <button onclick="saveNote()">Save</button>
+  </div>
+
+<script>
+  // Updates the 0/100 counter live as you type
+  function updateCount() {
+    const textarea = document.getElementById('content');
+    const display = document.getElementById('current-chars');
+    if (textarea && display) {
+      display.innerText = textarea.value.length;
+      
+      // Visual warning when limit is reached
+      if (textarea.value.length >= 100) {
+        display.style.color = "#ff4444";
+      } else {
+        display.style.color = "rgba(255,255,255,0.6)";
+      }
+    }
+  }
+
+  // Ensures the counter shows the correct number when the page loads
+  window.addEventListener('load', () => {
+    setTimeout(updateCount, 800); 
+  });
+</script>
+    
   </div>
 </div>
 <div class="section-divider"></div>

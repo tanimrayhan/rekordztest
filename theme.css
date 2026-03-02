@@ -1921,3 +1921,10 @@ textarea {
   }
 
 }
+/* Specific fix for iPhone Chrome/Firefox: Prevents focused inputs from hiding under navbar */
+@supports (-webkit-overflow-scrolling: touch) {
+  input:focus, 
+  textarea:focus {
+    scroll-margin-top: 160px !important;
+  }
+}
