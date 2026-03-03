@@ -326,9 +326,10 @@ monthDiv.innerHTML = `
 
     return `
       <input type="date"
-        value="${displayVal}"
-        onchange="updateDate(${i},${j},this.value)"
-        style="margin:3px; width:48%; display:inline-block;">
+  value="${displayVal}"
+  oninput="handleDateInput(${i},${j},this)"
+  onblur="handleDateBlur(${i},${j},this)"
+  style="margin:3px; width:48%; display:inline-block;">
     `;
 
   }).join('')}
