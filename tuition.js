@@ -333,7 +333,7 @@ monthDiv.innerHTML = `
     return `
       <input type="date"
   value="${displayVal}"
-  oninput="updateDate(${i},${j},this.value)"
+  onchange="updateDate(${i},${j},this.value)"
   onkeydown="return false"
   style="margin:3px; width:48%; display:inline-block;">
     `;
