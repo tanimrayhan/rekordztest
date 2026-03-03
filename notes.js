@@ -72,8 +72,11 @@ async function loadNotes() {
     const notesData = JSON.parse(sessionStorage.getItem("tempNotes") || "{}");
     Object.keys(notesData).forEach(id => processItem(id, notesData[id].title));
   } else {
-    const snap = await getDocs(collection(db, "users", user.uid, "notes"));
-    snap.forEach(n => processItem(n.id, n.data().title));
+    const list = await window.getFastData("notes");
+
+if (list) {
+  list.forEach(n => processItem(n.id, n.title));
+}
   }
 }
 
@@ -87,11 +90,20 @@ window.addNote = async () => {
     const id = Date.now().toString();
     tempNotes[id] = { title: title.value, content: "" };
     sessionStorage.setItem("tempNotes", JSON.stringify(tempNotes));
-  } else {
+  } else { try{ 
+    await window.checkAndIncrementUser();
     await addDoc(collection(db, "users", user.uid, "notes"), {
-      title: title.value,
-      content: ""
-    });
+  title: title.value,
+  content: ""
+});
+
+window.clearDataCache("notes");}
+    catch (err) {
+       // If the limit is 350, auth.js throws "LIMIT_REACHED"
+       if (err === "LIMIT_REACHED") return; 
+       console.error(err);
+       return; // Stop the code if there is an error
+    }
   }
 
   title.value = "";
@@ -112,9 +124,10 @@ async function loadNote() {
     return;
   }
 
-  const snap = await getDoc(doc(db, "users", user.uid, "notes", id));
-  title.value = snap.data().title;
-  content.value = snap.data().content;
+  const data = await window.getFastData("notes", id);
+
+title.value = data?.title || "";
+content.value = data?.content || "";
 }
 
 /* ======================
@@ -130,11 +143,21 @@ window.saveNote = async () => {
       tempNotes[id].content = content.value;
       sessionStorage.setItem("tempNotes", JSON.stringify(tempNotes));
     }
-  } else {
+  } else { try{
+    await window.checkAndIncrementUser();
     await updateDoc(doc(db, "users", user.uid, "notes", id), {
-      title: title.value, // Now also updates title in Firebase
-      content: content.value
-    });
+  title: title.value,
+  content: content.value
+});
+
+window.clearDataCache("notes", id);
+window.clearDataCache("notes");}
+    catch (err) {
+       // If the limit is 350, auth.js throws "LIMIT_REACHED"
+       if (err === "LIMIT_REACHED") return; 
+       console.error(err);
+       return; // Stop the code if there is an error
+    }
   }
 
   alert("Saved");
@@ -177,6 +200,11 @@ window.deleteItem = async (id, type) => {
       const activeUser = (typeof user !== 'undefined') ? user : currentUser;
       
       await deleteDoc(doc(db, "users", activeUser.uid, path, id));
+
+if (path === "notes") {
+  window.clearDataCache("notes", id);
+  window.clearDataCache("notes");
+}
     }
   } catch (error) {
     // If it fails, bring the item back so the user knows it's not gone

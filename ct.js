@@ -65,12 +65,21 @@ window.addCourse = async () => {
       JSON.stringify(tempCourses)
     );
 
-  } else {
-
+  } else { try{
+await window.checkAndIncrementUser();
     await setDoc(
-      doc(db, "users", user.uid, "ctCourses", courseName.value),
-      { ctCount: Number(ctCount.value), marks: [] }
-    );
+  doc(db, "users", user.uid, "ctCourses", courseName.value),
+  { ctCount: Number(ctCount.value), marks: [] }
+);
+
+window.clearDataCache("ctCourses", courseName.value);
+window.clearDataCache("ctCourses");}
+    catch (err) {
+       // If the limit is 350, auth.js throws "LIMIT_REACHED"
+       if (err === "LIMIT_REACHED") return; 
+       console.error(err);
+       return; // Stop the code if there is an error
+    }
 
   }
 
@@ -115,8 +124,8 @@ async function loadCourses() {
     tempCourses = JSON.parse(sessionStorage.getItem("tempCTCourses")) || {};
     Object.keys(tempCourses).forEach(id => processItem(id));
   } else {
-    const snap = await getDocs(collection(db, "users", user.uid, "ctCourses"));
-    snap.forEach(docSnap => processItem(docSnap.id));
+    const list = await window.getFastData("ctCourses");
+if (list) list.forEach(d => processItem(d.id));
   }
 }
 /* ===============================
@@ -135,9 +144,11 @@ async function loadDetails() {
     const data = tempCourses[courseId] || { ctCount: 0, marks: [] };
     marks = data.marks.length ? data.marks : Array(data.ctCount).fill(0);
   } else {
-    const ref = doc(db, "users", user.uid, "ctCourses", courseId);
-    const data = (await getDoc(ref)).data();
-    marks = data.marks.length ? data.marks : Array(data.ctCount).fill(0);
+    const data = await window.getFastData("ctCourses", courseId);
+
+marks = data?.marks?.length
+  ? data.marks
+  : Array(data?.ctCount || 0).fill(0);
   }
 
   // 1. ADDED NUMBERING (CT 1, CT 2...) to the input rows
@@ -184,12 +195,22 @@ window.saveCT = async () => {
     tempCourses = JSON.parse(sessionStorage.getItem("tempCTCourses")) || {};
     tempCourses[courseId].marks = marks;
     sessionStorage.setItem("tempCTCourses", JSON.stringify(tempCourses));
-  } else {
+  } else {try{
+    await window.checkAndIncrementUser();
     await setDoc(
-      doc(db, "users", user.uid, "ctCourses", courseId),
-      { marks },
-      { merge: true }
-    );
+  doc(db, "users", user.uid, "ctCourses", courseId),
+  { marks },
+  { merge: true }
+);
+
+window.clearDataCache("ctCourses", courseId);
+window.clearDataCache("ctCourses");}
+    catch (err) {
+       // If the limit is 350, auth.js throws "LIMIT_REACHED"
+       if (err === "LIMIT_REACHED") return; 
+       console.error(err);
+       return; // Stop the code if there is an error
+    }
   }
 
   chart.data.datasets[0].data = marks;
@@ -256,6 +277,11 @@ window.deleteItem = async (id, type) => {
       const activeUser = (typeof user !== 'undefined') ? user : currentUser;
       
       await deleteDoc(doc(db, "users", activeUser.uid, path, id));
+
+if (path === "ctCourses") {
+  window.clearDataCache("ctCourses", id);
+  window.clearDataCache("ctCourses");
+}
     }
   } catch (error) {
     // If it fails, bring the item back so the user knows it's not gone

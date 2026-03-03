@@ -18,18 +18,34 @@ function init() {
 }
 
 /* ================= HELPERS ================= */
+/* === NEW VERSION (Costs 0 Reads if data is in pocket) === */
 async function getAbsentData(id) {
   if (isTestMode) return tempAbsents[id] || { dates: [] };
-  const snap = await getDoc(doc(db, "users", currentUser.uid, "absents", id));
-  return snap.exists() ? snap.data() : { dates: [] };
+
+  // 1. Check the browser's "pocket" (sessionStorage) first
+  // This uses your new universal fetcher in auth.js
+  const data = await window.getFastData("absents", id); 
+  return data || { dates: [] };
 }
 
 async function saveAbsentData(id, data) {
   if (isTestMode) {
-    tempAbsents[id] = data;
-    sessionStorage.setItem("tempAbsents", JSON.stringify(tempAbsents));
-  } else {
-    await setDoc(doc(db, "users", currentUser.uid, "absents", id), data);
+    // ... test logic ...
+  } else { 
+    try { 
+      await window.checkAndIncrementUser();
+      await setDoc(doc(db, "users", currentUser.uid, "absents", id), data);
+
+      // 2. Clear the pocket copy so it updates on next load
+      // This uses your new universal clearer in auth.js
+      window.clearDataCache("absents", id); 
+      window.clearDataCache("absents"); // Also clear the main course list
+      
+    } catch (err) {
+       if (err === "LIMIT_REACHED") return; 
+       console.error(err);
+       return; 
+    }
   }
 }
 
@@ -49,9 +65,9 @@ window.loadCourses = async () => {
   if (isTestMode) {
     courses = Object.keys(tempAbsents);
   } else {
-    const snap = await getDocs(collection(db, "users", currentUser.uid, "absents"));
-    snap.forEach(d => courses.push(d.id));
-  }
+  const list = await window.getFastData("absents");
+  if (list) list.forEach(d => courses.push(d.id));
+}
 
   courses.forEach(id => {
     const div = document.createElement("div");
@@ -86,6 +102,9 @@ window.deleteCourse = async (id) => {
     sessionStorage.setItem("tempAbsents", JSON.stringify(tempAbsents));
   } else {
     await deleteDoc(doc(db, "users", currentUser.uid, "absents", id));
+
+window.clearDataCache("absents", id);
+window.clearDataCache("absents");
   }
   loadCourses();
 };

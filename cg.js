@@ -21,8 +21,9 @@ function init() {
 /* ================= HELPERS ================= */
 async function getPersonData(id) {
   if (isTestMode) return tempCgData[id] || { semesters: {} };
-  const snap = await getDoc(doc(db, "users", currentUser.uid, "cgpa", id));
-  return snap.exists() ? snap.data() : { semesters: {} };
+
+  const data = await window.getFastData("cgpa", id);
+  return data || { semesters: {} };
 }
 
 async function savePersonData(id, data) {
@@ -30,7 +31,18 @@ async function savePersonData(id, data) {
     tempCgData[id] = data;
     sessionStorage.setItem("tempCgData", JSON.stringify(tempCgData));
   } else {
+    try{
+    await window.checkAndIncrementUser();
     await setDoc(doc(db, "users", currentUser.uid, "cgpa", id), data);
+
+window.clearDataCache("cgpa", id);
+window.clearDataCache("cgpa");}
+    catch (err) {
+       // If the limit is 350, auth.js throws "LIMIT_REACHED"
+       if (err === "LIMIT_REACHED") return; 
+       console.error(err);
+       return; // Stop the code if there is an error
+    }
   }
 }
 
@@ -54,8 +66,8 @@ async function loadPersons() {
   list.innerHTML = "";
   let names = isTestMode ? Object.keys(tempCgData) : [];
   if (!isTestMode) {
-    const snap = await getDocs(collection(db, "users", currentUser.uid, "cgpa"));
-    snap.forEach(d => names.push(d.id));
+    const list = await window.getFastData("cgpa");
+if (list) list.forEach(d => names.push(d.id));
   }
   
   names.forEach(id => {
@@ -95,6 +107,9 @@ window.deletePerson = async (id) => {
     // You'll need to import deleteDoc and doc if not available in scope
     const { deleteDoc, doc } = await import("https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js");
     await deleteDoc(doc(db, "users", currentUser.uid, "cgpa", id));
+
+window.clearDataCache("cgpa", id);
+window.clearDataCache("cgpa");
   }
   loadPersons();
 };

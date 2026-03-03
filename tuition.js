@@ -54,11 +54,18 @@ window.addTuition = async function () {
   tempTuitions[name] = { months: [], showEarning: true };
   // PUSH to session so the details page can see it
   sessionStorage.setItem("tempTuitions", JSON.stringify(tempTuitions));
-} else {
+} else { try{
+  await window.checkAndIncrementUser();
     await setDoc(
       doc(db, "users", currentUser.uid, "tuitions", name),
       { months: [], showEarning: true }
-    );
+    );}
+    catch (err) {
+       // If the limit is 350, auth.js throws "LIMIT_REACHED"
+       if (err === "LIMIT_REACHED") return; 
+       console.error(err);
+       return; // Stop the code if there is an error
+    }
   }
 
   tuitionName.value = "";
@@ -98,8 +105,11 @@ async function loadTuitions() {
   if (isTestMode) {
     Object.keys(tempTuitions).forEach(id => processItem(id));
   } else {
-    const snap = await getDocs(collection(db, "users", currentUser.uid, "tuitions"));
-    snap.forEach(docSnap => processItem(docSnap.id));
+    const list = await window.getFastData("tuitions");
+
+if (list) {
+  list.forEach(d => processItem(d.id));
+}
   }
 }
 
@@ -127,12 +137,11 @@ async function loadTuitionDetails() {
     return;
   }
 
-  const ref = doc(db, "users", currentUser.uid, "tuitions", tuitionId);
-  const snap = await getDoc(ref);
+ const cacheData = await window.getFastData("tuitions", tuitionId);
 
-  data = snap.exists()
-    ? snap.data()
-    : { months: [], showEarning: true };
+data = cacheData
+  ? cacheData
+  : { months: [], showEarning: true };
 
   render();
 }
@@ -224,11 +233,14 @@ async function save() {
     sessionStorage.setItem("tempTuitions", JSON.stringify(tempTuitions));
     return;
   }
-
+await window.checkAndIncrementUser();
   await setDoc(
-    doc(db, "users", currentUser.uid, "tuitions", tuitionId),
-    data
-  );
+  doc(db, "users", currentUser.uid, "tuitions", tuitionId),
+  data
+);
+
+window.clearDataCache("tuitions", tuitionId);
+window.clearDataCache("tuitions");
 }
 
 /* ======================
@@ -372,6 +384,11 @@ window.deleteItem = async (id, type) => {
       const activeUser = (typeof user !== 'undefined') ? user : currentUser;
       
       await deleteDoc(doc(db, "users", activeUser.uid, path, id));
+
+if (path === "tuitions") {
+  window.clearDataCache("tuitions", id);
+  window.clearDataCache("tuitions");
+}
     }
   } catch (error) {
     // If it fails, bring the item back so the user knows it's not gone

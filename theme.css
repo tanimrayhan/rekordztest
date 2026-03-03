@@ -1928,3 +1928,22 @@ textarea {
     scroll-margin-top: 160px !important;
   }
 }
+/* Specifically removes glow/shadow for the logout button */
+.no-glow {
+  box-shadow: none !important;
+  animation: none !important;
+  text-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+/* Removes animation and glow from the Logout button */
+#previewBtn.no-glow {
+  animation: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+/* 🔥 Prevent Login Flickering */
+.top-actions {
+  visibility: hidden;
+}

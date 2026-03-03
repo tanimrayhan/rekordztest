@@ -20,16 +20,27 @@ function init() {
 /* ================= HELPERS ================= */
 async function getExpenseData(id) {
   if (isTestMode) return tempExpenses[id] || { items: [] };
-  const snap = await getDoc(doc(db, "users", currentUser.uid, "expenses", id));
-  return snap.exists() ? snap.data() : { items: [] };
+
+  const data = await window.getFastData("expenses", id);
+  return data || { items: [] };
 }
 
 async function saveExpenseData(id, data) {
   if (isTestMode) {
     tempExpenses[id] = data;
     sessionStorage.setItem("tempExpenses", JSON.stringify(tempExpenses));
-  } else {
+  } else { try{
+    await window.checkAndIncrementUser();
     await setDoc(doc(db, "users", currentUser.uid, "expenses", id), data);
+
+window.clearDataCache("expenses", id);
+window.clearDataCache("expenses");}
+    catch (err) {
+       // If the limit is 350, auth.js throws "LIMIT_REACHED"
+       if (err === "LIMIT_REACHED") return; 
+       console.error(err);
+       return; // Stop the code if there is an error
+    }
   }
 }
 
@@ -49,8 +60,8 @@ window.loadDurations = async () => {
   if (isTestMode) {
     durations = Object.keys(tempExpenses);
   } else {
-    const snap = await getDocs(collection(db, "users", currentUser.uid, "expenses"));
-    snap.forEach(d => durations.push(d.id));
+    const list = await window.getFastData("expenses");
+if (list) list.forEach(d => durations.push(d.id));
   }
 
   durations.forEach(id => {
@@ -86,6 +97,9 @@ window.deleteDuration = async (id) => {
     sessionStorage.setItem("tempExpenses", JSON.stringify(tempExpenses));
   } else {
     await deleteDoc(doc(db, "users", currentUser.uid, "expenses", id));
+
+window.clearDataCache("expenses", id);
+window.clearDataCache("expenses");
   }
   loadDurations();
 };
