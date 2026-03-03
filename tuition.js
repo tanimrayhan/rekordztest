@@ -178,7 +178,7 @@ window.updateDate = async function (m, d, val) {
     return;
   }
 
-  // Format YYYY-MM-DD → DD-MM-YY
+  // Convert YYYY-MM-DD → DD-MM-YY
   const parts = val.split("-");
   const day = parts[2];
   const month = parts[1];
@@ -334,6 +334,7 @@ monthDiv.innerHTML = `
       <input type="date"
   value="${displayVal}"
   oninput="updateDate(${i},${j},this.value)"
+  onkeydown="return false"
   style="margin:3px; width:48%; display:inline-block;">
     `;
 
