@@ -169,20 +169,26 @@ window.addMonth = async function () {
    UPDATE DATE
 ====================== */
 window.updateDate = async function (m, d, val) {
-  if (!val) return;
 
-  // 1. Split the browser's YYYY-MM-DD
-  const parts = val.split("-"); 
-  
-  // 2. Format as DD-MM-YY
+  // If cleared → delete the date
+  if (!val) {
+    data.months[m].dates[d] = "";
+    await save();
+    render();
+    return;
+  }
+
+  // Format YYYY-MM-DD → DD-MM-YY
+  const parts = val.split("-");
   const day = parts[2];
   const month = parts[1];
-  const year = parts[0].slice(-2); 
+  const year = parts[0].slice(-2);
+
   const formatted = `${day}-${month}-${year}`;
 
-  // 3. Update memory and SAVE immediately
   data.months[m].dates[d] = formatted;
-  await save(); // Saves to sessionStorage in Test Mode or Firestore in Firebase
+
+  await save();
 };
 window.updateMonth = async function (i) {
 
@@ -327,8 +333,7 @@ monthDiv.innerHTML = `
     return `
       <input type="date"
   value="${displayVal}"
-  oninput="handleDateInput(${i},${j},this)"
-  onblur="handleDateBlur(${i},${j},this)"
+  oninput="updateDate(${i},${j},this.value)"
   style="margin:3px; width:48%; display:inline-block;">
     `;
 

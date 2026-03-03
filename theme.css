@@ -1947,3 +1947,6 @@ textarea {
 .top-actions {
   visibility: hidden;
 }
+input[type="date"] {
+  color-scheme: dark;
+}
