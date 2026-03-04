@@ -15,34 +15,55 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 const provider = new GoogleAuthProvider();
+async function checkLoginLimit() {
 
+  const statsRef = doc(db, "metadata", "stats");
+  const snap = await getDoc(statsRef);
+
+  const count = snap.exists() ? (snap.data().userCount || 0) : 0;
+
+  const LIMIT = 3;
+
+  if (count >= LIMIT) {
+
+    alert("Only existing users can login for now. REKORDZ isn’t accepting new users at the moment.");
+
+    return false;
+  }
+
+  return true;
+}
 window.login = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
     const userRef = doc(db, "users", user.uid);
-    const userSnap = await getDoc(userRef);
+const userSnap = await getDoc(userRef);
 
-    if (!userSnap.exists()) {
-      const statsRef = doc(db, "metadata", "stats");
-      const statsSnap = await getDoc(statsRef);
-      const currentCount = statsSnap.exists() ? statsSnap.data().userCount : 0;
+if (!userSnap.exists()) {
 
-      if (currentCount >= 200) {
-        alert("REKORDZ is not accepting new users at the moment. Please use Preview Mode for now, and try again later or contact us.");
-        await signOut(auth);
-        return;
-      }
+  const allowed = await checkLoginLimit();
 
-      await setDoc(userRef, {
-        registeredAt: new Date(),
-        email: user.email,
-        displayName: user.displayName
-      });
+  if (!allowed) {
+    await signOut(auth);
+    location.href = "index.html";
+    return;
+  }
 
-      await setDoc(statsRef, { userCount: currentCount + 1 }, { merge: true });
-    }
+  const statsRef = doc(db, "metadata", "stats");
+  const snap = await getDoc(statsRef);
+  const count = snap.exists() ? (snap.data().userCount || 0) : 0;
+
+  await setDoc(userRef, {
+    registeredAt: new Date(),
+    email: user.email,
+    displayName: user.displayName
+  });
+
+  await setDoc(statsRef, { userCount: count + 1 }, { merge: true });
+
+}
 
     sessionStorage.removeItem("testMode");
     location.href = "dashboard.html";
@@ -64,7 +85,7 @@ window.logout = async () => {
 
 window.checkAndIncrementUser = async () => {
   const user = auth.currentUser;
-  if (!user || sessionStorage.getItem("testMode") === "true") return;
+if (sessionStorage.getItem("testMode") === "true") return;
 
   try {
     const userRef = doc(db, "users", user.uid);
@@ -76,7 +97,7 @@ window.checkAndIncrementUser = async () => {
         const statsSnap = await transaction.get(statsRef);
         const currentCount = statsSnap.exists() ? (Number(statsSnap.data().userCount) || 0) : 0;
 
-        if (currentCount >= 200) {
+        if (currentCount >= 3) {
           alert("REKORDZ is not accepting new users at the moment. Please use Preview Mode for now, and try again later or contact us.");
           throw "LIMIT_REACHED"; 
         }
@@ -93,6 +114,10 @@ window.checkAndIncrementUser = async () => {
 };
 
 onAuthStateChanged(auth, (user) => {
+  // 🚀 If real user exists, force exit preview mode
+if (user && sessionStorage.getItem("testMode") === "true") {
+  sessionStorage.removeItem("testMode");
+}
   // 🔥 Restore navbar visibility after Firebase initializes
 const topActions = document.querySelectorAll(".top-actions");
 topActions.forEach(el => el.style.visibility = "visible");
@@ -168,10 +193,19 @@ window.getFastData = async (collectionName, docId = null) => {
   const cacheKey = `cache_${collectionName}_${docId || 'list'}_${user.uid}`;
   const cached = sessionStorage.getItem(cacheKey);
 
-  if (cached) {
-    console.log(`%c Cache Hit: ${collectionName}`, 'color: #00ff00');
-    return JSON.parse(cached);
+if (cached) {
+  const parsed = JSON.parse(cached);
+
+  const CACHE_TTL = 10000; // 🔥 10 seconds
+
+  if (Date.now() - parsed.timestamp < CACHE_TTL) {
+    console.log(`%c Cache Valid: ${collectionName}`, 'color: #00ff00');
+    return parsed.data;
+  } else {
+    console.log(`%c Cache Expired: ${collectionName}`, 'color: #ff0000');
+    sessionStorage.removeItem(cacheKey);
   }
+}
 
   console.log(`%c Firebase Read: ${collectionName}`, 'color: #ff9900');
   let data;
@@ -185,7 +219,12 @@ window.getFastData = async (collectionName, docId = null) => {
     data = snap.docs.map(d => ({ id: d.id, ...d.data() }));
   }
 
-  sessionStorage.setItem(cacheKey, JSON.stringify(data));
+  const payload = {
+  data,
+  timestamp: Date.now()
+};
+
+sessionStorage.setItem(cacheKey, JSON.stringify(payload));
   return data;
 };
 

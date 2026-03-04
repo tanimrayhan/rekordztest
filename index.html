@@ -96,7 +96,7 @@
   </div>
 
  <main class="page-wrapper index-layout">
-
+<div id="limitBannerContainer"></div>
   <div class="hero-frame">
     <div class="hero-container">
 
@@ -213,6 +213,47 @@ boxes.forEach(box => {
 
 });
 
+</script>
+<script type="module">
+import { db } from "./firebase.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+async function checkUserLimitBanner(){
+
+  const container = document.getElementById("limitBannerContainer");
+  if(!container) return;
+
+  const banner = document.createElement("div");
+  banner.className = "test-banner";
+
+  // TEST MODE banner
+  if(sessionStorage.getItem("testMode") === "true"){
+    banner.innerText = "Preview Mode – data will not be saved.";
+    container.appendChild(banner);
+    return;
+  }
+
+  // FIREBASE LIMIT banner
+  try{
+
+    const statsRef = doc(db,"metadata","stats");
+    const snap = await getDoc(statsRef);
+
+    const count = snap.exists() ? snap.data().userCount : 0;
+
+    if(count >= 3){
+      banner.innerText =
+      "Only existing users can log in for now. REKORDZ isn’t accepting new users at the moment. Please contact us.";
+      container.appendChild(banner);
+    }
+
+  }catch(e){
+    console.warn("Limit banner check failed");
+  }
+
+}
+
+checkUserLimitBanner();
 </script>
 </body>
 </html>
