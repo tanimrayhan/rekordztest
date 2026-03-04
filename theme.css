@@ -1950,9 +1950,10 @@ textarea {
 input[type="date"] {
   color-scheme: dark;
 }
+
 #limitBannerContainer{
   position: relative;
-  z-index: 2001;
-  margin-top: -160px;
-  margin-bottom: 20px;
+  z-index: 1500;
+  margin-top: 110px;
+  margin-bottom: -85px;
 }
