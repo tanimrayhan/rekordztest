@@ -1954,6 +1954,6 @@ input[type="date"] {
 #limitBannerContainer{
   position: relative;
   z-index: 1500;
-  margin-top: 170px;
-  margin-bottom: -55px;
+  margin-top: 110px;
+  margin-bottom: 20px;
 }
