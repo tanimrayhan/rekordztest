@@ -1954,15 +1954,15 @@ input[type="date"] {
 #limitBannerContainer{
   position: relative;
   z-index: 1500;
-  margin-top: 95px;
-  margin-bottom: -140px;
+  margin-top: -140px;
+  margin-bottom: 20px;
   text-align: center;
 }
 @media (max-width: 820px){
 
   #limitBannerContainer{
-    margin-top: 95px;
-    margin-bottom: -110px;
+    margin-top: -120px;
+    margin-bottom: 20px;
   }
 
 }
