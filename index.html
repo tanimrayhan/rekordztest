@@ -218,18 +218,33 @@ boxes.forEach(box => {
 import { db } from "./firebase.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-function checkUserLimitBanner(){
+async function checkUserLimitBanner(){
 
   const container = document.getElementById("limitBannerContainer");
   if(!container) return;
 
-  const banner = document.createElement("div");
-  banner.className = "test-banner";
+  try{
 
-  banner.innerText =
-  "Only existing users can login for now. REKORDZ isn’t accepting new users at the moment. Please contact us for more information. bro";
+    const statsRef = doc(db,"metadata","stats");
+    const snap = await getDoc(statsRef);
 
-  container.appendChild(banner);
+    const count = snap.exists() ? snap.data().userCount : 0;
+
+    if(count >= 3){
+
+      const banner = document.createElement("div");
+      banner.className = "test-banner";
+
+      banner.innerText =
+      "Only existing users can log in for now. REKORDZ isn’t accepting new users at the moment. Please contact us.";
+
+      container.appendChild(banner);
+
+    }
+
+  }catch(e){
+    console.warn("Limit banner check failed");
+  }
 
 }
 
